@@ -62,6 +62,8 @@ public class Cube31 : MonoBehaviour
 
             Vector3 gravityAcc = transform.rotation * new Vector3(0, gravity, 0);
 
+            Debug.Log("acc: " + sd.ax + " " + sd.az + " " + sd.ay);
+
             Vector3 absoluteAccGravity = transform.rotation * new Vector3(sd.ax* gravity, sd.az* gravity, sd.ay* gravity);
 
             Vector3 absoluteAcc = absoluteAccGravity + gravityAcc;
@@ -72,8 +74,8 @@ public class Cube31 : MonoBehaviour
 
             if ((sd.timeStamp/1000) - prevTimestamp > 0.03)
             {
-                Debug.Log("Akselerasjon " + absoluteAcc.x + " " + absoluteAcc.y + " " + absoluteAcc.z);
-                Debug.Log(transform.rotation);
+               // Debug.Log("Akselerasjon " + absoluteAcc.x + " " + absoluteAcc.y + " " + absoluteAcc.z);
+                //Debug.Log(transform.rotation);
 
                 /*
                 double t = (sd.timeStamp/1000) - prevTimestamp;
