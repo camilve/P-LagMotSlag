@@ -1,2 +1,2 @@
 # P-LagMotSlag
-A game for stroke patients with use of LPMS-B2
+A game for stroke patients with use of Kinect
