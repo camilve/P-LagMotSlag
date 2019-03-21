@@ -115,6 +115,8 @@ public class Test2 : MonoBehaviour {
             }
             if (body.IsTracked)
             {
+
+
                 //Place the gameobject with the spine as the centre.
                 player.transform.position = GetVector(body.Joints[Kinect.JointType.SpineBase].Position);
 
