@@ -58,9 +58,17 @@ public class Test2 : MonoBehaviour {
             if (body.IsTracked)
             {
 
+                //Default position player (-0.00532963, 0.594, -8.363)
+                Vector3 spineBase = GetVector(body.Joints[Kinect.JointType.SpineBase].Position);
+
+                float diffX = spineBase.x - (spineBase.x);
+                float diffY = spineBase.y - (1.25f);
+                float diffZ = spineBase.z - (-8.363f);
+                Vector3 diff = new Vector3(diffX, diffY, diffZ);
+
 
                 //Place the gameobject with the spine as the centre.
-                player.transform.position = GetVector(body.Joints[Kinect.JointType.SpineBase].Position);
+                player.transform.position = GetVector(body.Joints[Kinect.JointType.SpineBase].Position) - diff;
 
                 //Place the feet the same place as the Kinect.            
 #warning Vet ikke om foten går frem eller tilbake
@@ -74,18 +82,18 @@ public class Test2 : MonoBehaviour {
                 animator.SetIKHintPositionWeight(AvatarIKHint.RightElbow, 1);
 
 
-                animator.SetIKPosition(AvatarIKGoal.LeftFoot, GetVector(body.Joints[Windows.Kinect.JointType.FootLeft].Position));
+                animator.SetIKPosition(AvatarIKGoal.LeftFoot, GetVector(body.Joints[Windows.Kinect.JointType.FootLeft].Position)-diff);
                 //animator.SetIKRotation(AvatarIKGoal.LeftFoot, new Quaternion(body.Joints[Windows.Kinect.JointType.FootLeft].Position.X, body.Joints[Windows.Kinect.JointType.FootLeft].Position.Y, body.Joints[Windows.Kinect.JointType.FootLeft].Position.Z));
-                animator.SetIKPosition(AvatarIKGoal.RightFoot, GetVector(body.Joints[Windows.Kinect.JointType.FootRight].Position));
+                animator.SetIKPosition(AvatarIKGoal.RightFoot, GetVector(body.Joints[Windows.Kinect.JointType.FootRight].Position)-diff);
 
-                animator.SetIKPosition(AvatarIKGoal.LeftHand, GetVector(body.Joints[Windows.Kinect.JointType.HandLeft].Position));
-                animator.SetIKPosition(AvatarIKGoal.RightHand, GetVector(body.Joints[Windows.Kinect.JointType.HandRight].Position));
+                animator.SetIKPosition(AvatarIKGoal.LeftHand, GetVector(body.Joints[Windows.Kinect.JointType.HandLeft].Position)-diff);
+                animator.SetIKPosition(AvatarIKGoal.RightHand, GetVector(body.Joints[Windows.Kinect.JointType.HandRight].Position)-diff);
 
-                animator.SetIKHintPosition(AvatarIKHint.LeftKnee, GetVector(body.Joints[Windows.Kinect.JointType.KneeLeft].Position));
-                animator.SetIKHintPosition(AvatarIKHint.RightKnee, GetVector(body.Joints[Windows.Kinect.JointType.KneeRight].Position));
+                animator.SetIKHintPosition(AvatarIKHint.LeftKnee, GetVector(body.Joints[Windows.Kinect.JointType.KneeLeft].Position)-diff);
+                animator.SetIKHintPosition(AvatarIKHint.RightKnee, GetVector(body.Joints[Windows.Kinect.JointType.KneeRight].Position)-diff);
 
-                animator.SetIKHintPosition(AvatarIKHint.LeftElbow, GetVector(body.Joints[Windows.Kinect.JointType.ElbowLeft].Position));
-                animator.SetIKHintPosition(AvatarIKHint.RightElbow, GetVector(body.Joints[Windows.Kinect.JointType.ElbowRight].Position));
+                animator.SetIKHintPosition(AvatarIKHint.LeftElbow, GetVector(body.Joints[Windows.Kinect.JointType.ElbowLeft].Position)-diff);
+                animator.SetIKHintPosition(AvatarIKHint.RightElbow, GetVector(body.Joints[Windows.Kinect.JointType.ElbowRight].Position)-diff);
 
                 //animator.SetLookAtPosition(new Vector3(body.Joints[Windows.Kinect.JointType.Head].Position.X, body.Joints[Windows.Kinect.JointType.Head].Position.Y, body.Joints[Windows.Kinect.JointType.Head].Position.Z));
 
