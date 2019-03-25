@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Balance 1.unity
     guid: 2be1752540d13f24faf4415f21733d04
+  - enabled: 1
+    path: Assets/Balance 2.unity
+    guid: 5b3c47320008d8c4e86161f209b30327
   m_configObjects: {}

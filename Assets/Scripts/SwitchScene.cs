@@ -27,6 +27,6 @@ public class SwitchScene : MonoBehaviour
     public void GotoBalance2Scene()
     {
         loadScene = "Balance 2";
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("PauseScreen");
     }
 }

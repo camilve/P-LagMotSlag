@@ -4,7 +4,7 @@ using UnityEngine;
 using Windows.Kinect;
 using Kinect = Windows.Kinect;
 
-public class Test2 : MonoBehaviour {
+public class Balance1Script : MonoBehaviour {
 
     protected Animator animator;
     private GameObject player;

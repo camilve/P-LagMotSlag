@@ -41,6 +41,7 @@ public class LoadScene : MonoBehaviour
             return;
         }
 
+        /*
         if(BodySourceManager != null && _BodyManager != null && data != null)
         { 
             // ...set the loadScene boolean to true to prevent loading a new scene more than once...
@@ -52,6 +53,24 @@ public class LoadScene : MonoBehaviour
             // ...and start a coroutine that will load the desired scene.
             StartCoroutine(LoadNewScene());
 
+        }*/
+        foreach (var body in data)
+        {
+            if (body == null)
+            {
+                continue;
+            }
+            if (body.IsTracked)
+            {
+                // ...set the loadScene boolean to true to prevent loading a new scene more than once...
+                loadScene = true;
+
+                // ...change the instruction text to read "Loading..."
+                loadingText.text = "Loading...";
+
+                // ...and start a coroutine that will load the desired scene.
+                StartCoroutine(LoadNewScene());
+            }
         }
 
         // If the new scene has started loading...
@@ -78,6 +97,7 @@ public class LoadScene : MonoBehaviour
         //AsyncOperation async = Application.LoadLevelAsync(scene);
 
         SceneManager.LoadScene(SwitchScene.loadScene);
+        DontDestroyOnLoad(BodySourceManager);
 
 
         // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
