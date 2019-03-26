@@ -9,12 +9,17 @@ public class DriveRailway : MonoBehaviour
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
     protected GameObject player;
-    public Rigidbody rb; 
+    public Rigidbody rb;
+    private Vector3 spineStartPos;
+    private int counter;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        counter = 1;
+        spineStartPos = new Vector3(0, 0, 0);
+        
     }
 
     // Update is called once per frame
@@ -47,18 +52,39 @@ public class DriveRailway : MonoBehaviour
                 continue;
             }
             if (body.IsTracked)
-            {
+            {                    
+                Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position);
+                Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.AnkleRight].Position);
+                Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.AnkleLeft].Position);
 
-                Quaternion t = new Quaternion(body.JointOrientations[Windows.Kinect.JointType.SpineShoulder].Orientation.W, body.JointOrientations[Windows.Kinect.JointType.SpineShoulder].Orientation.X, body.JointOrientations[Windows.Kinect.JointType.SpineShoulder].Orientation.Y, body.JointOrientations[Windows.Kinect.JointType.SpineShoulder].Orientation.Z);
-                
-                //Må lagre start posisjon for å vite om man lener seg over!!!
+                if (counter == 1)
+                {
+                    spineStartPos = spinePos;
+                    counter++;
+                }
 
-                Vector3 shoulderpos = GetVector(body.Joints[Windows.Kinect.JointType.ShoulderRight].Position);
-                Vector3 footpos = GetVector(body.Joints[Windows.Kinect.JointType.FootRight].Position);
+                //distance between the ankles
+                float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));
 
-                Debug.Log("shoulder: " + shoulderpos);
-                Debug.Log("foot: " + footpos);
+                //Distance between from ankle that the spine should be (center of gravity)
+                float optimalSpinePos = d / 2;
 
+
+                //distance from spine to left ankle and distance from spine to right ankle
+                float dSpineLeft = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleLeft.x), 2) + Mathf.Pow((spinePos.y - ankleLeft.y), 2) + Mathf.Pow((spinePos.z - ankleLeft.z), 2));
+                float dSpineRight = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleRight.x), 2) + Mathf.Pow((spinePos.y - ankleRight.y), 2) + Mathf.Pow((spinePos.z - ankleRight.z), 2));
+
+                //Find angle of left ankle to floor
+                float leftAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineRight, 2) - Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineLeft * d));
+                float rightAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(dSpineRight, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineRight * d));
+
+
+                Debug.Log("left ankle: " + leftAngleAnkle * 180 / Mathf.PI);
+                Debug.Log("right ankle: " + rightAngleAnkle * 180 / Mathf.PI);
+
+
+
+               
 
                 // Første går det raskere og raskere, kanskje i et høyere level
                 //rb.AddForce(0, 0, 500 * Time.deltaTime);

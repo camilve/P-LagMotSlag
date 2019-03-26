@@ -143,7 +143,7 @@ public class Balance1Script : MonoBehaviour {
 
     private Vector3 GetVector(CameraSpacePoint point)
     {
-        return new Vector3(point.X, point.Y, point.Z);
+        return new Vector3(point.X, point.Y, -point.Z);
     }
 
 }
