@@ -97,33 +97,7 @@ public class Balance1Script : MonoBehaviour {
 
                 //animator.SetLookAtPosition(new Vector3(body.Joints[Windows.Kinect.JointType.Head].Position.X, body.Joints[Windows.Kinect.JointType.Head].Position.Y, body.Joints[Windows.Kinect.JointType.Head].Position.Z));
 
-                /*
-                if (GetVector(body.Joints[Kinect.JointType.ShoulderLeft].Position) != Vector3.zero && GetVector(body.Joints[Windows.Kinect.JointType.ShoulderRight].Position) != Vector3.zero)
-                {
-                    float _leftShoulderX = body.Joints[Kinect.JointType.ShoulderLeft].Position.X;
-                    float _leftShoulderY = body.Joints[Kinect.JointType.ShoulderLeft].Position.Y;
-                    float _leftShoulderZ = body.Joints[Kinect.JointType.ShoulderLeft].Position.Z;
-                    float _rightShoulderX = body.Joints[Kinect.JointType.ShoulderRight].Position.X;
-                    float _rightShoulderY = body.Joints[Kinect.JointType.ShoulderRight].Position.Y;
-                    float _rightShoulderZ = body.Joints[Kinect.JointType.ShoulderRight].Position.Z;
-
-                    float _absoluteX = Mathf.Abs(_leftShoulderX) + Mathf.Abs(_rightShoulderX);
-                    float _absoluteZ = Mathf.Abs(_leftShoulderZ - _rightShoulderZ);
-
-                    float _division = _absoluteX / _absoluteZ;
-                    float _spineAngleRadians = Mathf.Atan(_division);
-
-                    if (_leftShoulderZ > _rightShoulderZ)
-                    {
-                        _spineAngle = 90 + (_spineAngleRadians * (180.0f / Mathf.PI));
-                    }
-                    else
-                    {
-                        _spineAngle = 270 - (_spineAngleRadians * (180.0f / Mathf.PI));
-                    }
-                }
-                _player.transform.rotation = Quaternion.AngleAxis(-_spineAngle, Vector3.up);
-                */
+                
             }
         }
 

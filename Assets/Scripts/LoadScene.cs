@@ -41,19 +41,7 @@ public class LoadScene : MonoBehaviour
             return;
         }
 
-        /*
-        if(BodySourceManager != null && _BodyManager != null && data != null)
-        { 
-            // ...set the loadScene boolean to true to prevent loading a new scene more than once...
-            loadScene = true;
 
-            // ...change the instruction text to read "Loading..."
-            loadingText.text = "Loading...";
-
-            // ...and start a coroutine that will load the desired scene.
-            StartCoroutine(LoadNewScene());
-
-        }*/
         foreach (var body in data)
         {
             if (body == null)
@@ -89,22 +77,14 @@ public class LoadScene : MonoBehaviour
     IEnumerator LoadNewScene()
     {
 
-        // This line waits for 3 seconds before executing the next line in the coroutine.
+        // This line waits for 2 seconds before executing the next line in the coroutine.
         // This line is only necessary for this demo. The scenes are so simple that they load too fast to read the "Loading..." text.
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
-        // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
-        //AsyncOperation async = Application.LoadLevelAsync(scene);
-
-        SceneManager.LoadScene(SwitchScene.loadScene);
-        DontDestroyOnLoad(BodySourceManager);
-
-
-        // While the asynchronous operation to load the new scene is not yet complete, continue waiting until it's done.
-        /* while (!async.isDone)
-          {
-              yield return null;
-          }*/
+      
+        //Uses the loadScene parameter from SwitchScene script to know which scene to load.
+        SceneManager.LoadScene(SwitchScene.loadScene); 
+        DontDestroyOnLoad(BodySourceManager);    
 
     }
 

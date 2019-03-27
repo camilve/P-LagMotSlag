@@ -6,7 +6,7 @@ using Kinect = Windows.Kinect;
 public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
-    public GameObject player;
+    protected GameObject player;
     public int score = 0;
     Material p_material;
     Color boxOutside = new Color(0.840f, 0.281f, 0.334f, 1.000f);
@@ -16,19 +16,14 @@ public class MovementBoxes : MonoBehaviour
     void Start()
     {
         p_material = GetComponent<Renderer>().material;
+        Debug.Log(p_material.color.Equals(boxBetween));
         
     }
 
     // FixedUpdate because we use it to mess with physics
 #warning Usikker på om jeg skal lage en update og en fixedUpdate
-    void FixedUpdate()
-    {
-       
-        if (p_material.color == (boxBetween))
-        {
-            Debug.Log("true:e");
-        }
-
+    void Update()
+    {      
         rb.velocity = new Vector3(0, 0, -500 * Time.deltaTime);
         //rb.AddForce(0, 0, -600 * Time.deltaTime);
 
@@ -51,13 +46,20 @@ public class MovementBoxes : MonoBehaviour
             //checks if the box is going on the left side of the left foot and the right foot
             if(this.transform.position.x + (this.transform.localScale.x / 2) < positionLeft.x && this.transform.position.x + (this.transform.localScale.x / 2) < positionRight.x) 
             {
-                
+                if (Mathf.Round(p_material.color.b * 100) == Mathf.Round(boxOutside.b * 100)) //checks if the box is supposed to go outside
+                {
+                    Debug.Log("Poeng");
+                }
                 Debug.Log("Boksen går på venstre side av venstre bein");
 
             }
             //checks if the box is going on the right side of the right foot
             else if (this.transform.position.x - (this.transform.localScale.x / 2) > positionRight.x && this.transform.position.x - (this.transform.localScale.x / 2) > positionLeft.x)
             {
+                if (Mathf.Round(p_material.color.b * 100) == Mathf.Round(boxOutside.b * 100)) //checks if the box is supposed to go outside                
+                {
+                    Debug.Log("Poeng");
+                }
                 Debug.Log("Boksen går på høyre side av høyre bein");
 
             }
@@ -66,7 +68,10 @@ public class MovementBoxes : MonoBehaviour
                 //Is the box between the left and the right foot
                 if (this.transform.position.x + (this.transform.localScale.x / 2) < positionRight.x && this.transform.position.x - (this.transform.localScale.x / 2) > positionLeft.x)
                 {
-                    Debug.Log("BRA!!!!!!");
+                    if (Mathf.Round(p_material.color.b * 100) == Mathf.Round(boxBetween.b * 100)) //checks if the box is supposed to go between the feets                
+                    {
+                        Debug.Log("Poeng");
+                    }                   
                 } 
                 else if (positionRight.x < positionLeft.x)
                 {
