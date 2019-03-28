@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CoinCollider : MonoBehaviour
 {
-    public Text points;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,14 +13,14 @@ public class CoinCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0, 4, 0, Space.World);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        DriveRailway.nrCoins++;
-        points.text = "" + DriveRailway.nrCoins;
-
-        Destroy(gameObject);
+        if (other.name == "Player") {
+            DriveRailway.nrCoins++;
+            Destroy(gameObject);
+        }
     }
 }

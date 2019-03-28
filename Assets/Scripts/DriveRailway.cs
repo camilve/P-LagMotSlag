@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Windows.Kinect;
 using Kinect = Windows.Kinect;
+using UnityEngine.UI;
 
 public class DriveRailway : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class DriveRailway : MonoBehaviour
     private float startAngleRight;
     static public int nrCoins = 0;
     public GameObject CoinPrefab;
+    public Text points;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,9 @@ public class DriveRailway : MonoBehaviour
         spineStartPos = new Vector3(0, 0, 0);
 
 
-
-        for(int i=0; i<500; i++)
+#warning Gjøre om dette, høre med Elise hva hun tenker!
+        Vector3[] placedCoins = new Vector3[100];
+        for(int i=0; i<300; i++)
         {
             Vector3 pos;
             pos.y = 5.55f;
@@ -40,6 +43,17 @@ public class DriveRailway : MonoBehaviour
             }
             pos.z = Random.Range(70f, 1744f);
 
+            if (i > 0)
+            {
+                for (int j = i; j <= 0; j--)
+                {
+                    if(pos == placedCoins[j]) //If they have the same position, it has to find a new position
+                    {
+                        Debug.Log("Må finne ny posisjon");
+                    }
+                }
+            }
+
             Instantiate(CoinPrefab, pos, Quaternion.identity);
             
         }
@@ -50,6 +64,8 @@ public class DriveRailway : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        points.text = "" +nrCoins;
         if (BodySourceManager == null)
         {
             player.transform.eulerAngles = new Vector3(0, 0, 0);

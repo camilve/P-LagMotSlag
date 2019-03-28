@@ -13297,6 +13297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodySourceManager: {fileID: 1163320528}
   rb: {fileID: 879402480}
+  CoinPrefab: {fileID: 6146852805305339249, guid: ca2d2bd128a70f3479738bf9ce546cca,
+    type: 3}
+  points: {fileID: 2082037018}
 --- !u!54 &879402480
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class MovementBoxes : MonoBehaviour
 #warning Usikker på om jeg skal lage en update og en fixedUpdate
     void Update()
     {      
-        rb.velocity = new Vector3(0, 0, -500 * Time.deltaTime);
+        rb.velocity = new Vector3(0, 0, -200 * Time.deltaTime);
         //rb.AddForce(0, 0, -600 * Time.deltaTime);
 
         player = GameObject.Find("Player");

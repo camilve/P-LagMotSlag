@@ -11,6 +11,9 @@ public class Balance1Script : MonoBehaviour {
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
 
+    protected GameObject boxBetween;
+    protected GameObject boxOutside;
+
 
     void Start ()
     {
@@ -18,6 +21,11 @@ public class Balance1Script : MonoBehaviour {
         animator = player.GetComponent<Animator>();
         //animator = GetComponent<Animator>();
         Debug.Log(animator);
+
+        boxBetween = GameObject.Find("obstacle1");
+        boxOutside = GameObject.Find("obstacle2");
+        boxBetween.GetComponent<MovementBoxes>().enabled = false;
+        boxOutside.GetComponent<MovementBoxes>().enabled = false;
     }
 
     void Update()
@@ -57,6 +65,11 @@ public class Balance1Script : MonoBehaviour {
             }
             if (body.IsTracked)
             {
+                //Start the boxes
+                boxBetween.GetComponent<MovementBoxes>().enabled = true;
+                boxOutside.GetComponent<MovementBoxes>().enabled = true;
+
+
 
                 //Default position player (-0.00532963, 0.594, -8.363)
                 Vector3 spineBase = GetVector(body.Joints[Kinect.JointType.SpineBase].Position);
