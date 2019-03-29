@@ -11,8 +11,8 @@ public class Balance1Script : MonoBehaviour {
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
 
-    protected GameObject boxBetween;
-    protected GameObject boxOutside;
+    public GameObject boxBetweenPrefab;
+    public GameObject boxOutsidePrefab;
 
 
     void Start ()
@@ -22,10 +22,67 @@ public class Balance1Script : MonoBehaviour {
         //animator = GetComponent<Animator>();
         Debug.Log(animator);
 
-        boxBetween = GameObject.Find("obstacle1");
+
+        Vector3 prevPos = new Vector3(0f, 0f, -5f);
+        while (prevPos.z < 540f)
+        {
+            Vector3 pos;
+            pos.z = prevPos.z + 5f;
+            int randomVal = Random.Range(0, 4);
+            Debug.Log(randomVal);
+
+            if(randomVal == 0)
+            {
+                //Left side
+                pos.x = -0.08f;
+                pos.y = 0.6f;
+                if (prevPos.x == 0.08f)
+                {
+                    pos.z = prevPos.z + 10f;
+                }
+
+                Instantiate(boxBetweenPrefab, pos, Quaternion.identity);
+            }
+            else if (randomVal == 1)
+            {
+                //Right side
+                pos.x = 0.08f;
+                pos.y = 0.6f;
+                if (prevPos.x == -0.08f)
+                {
+                    pos.z = prevPos.z + 10f;
+                }
+                Instantiate(boxBetweenPrefab, pos, Quaternion.identity);
+            }
+            else if (randomVal == 2)
+            {
+                //Left side
+                pos.x = -1f;
+                pos.y = 0.75f;
+                Instantiate(boxOutsidePrefab, pos, Quaternion.identity);
+            }
+            else if (randomVal == 3)
+            {
+                //right side
+                pos.x = 1f;
+                pos.y = 0.75f;
+                Instantiate(boxOutsidePrefab, pos, Quaternion.identity);
+            } 
+            else
+            {
+                pos.x = 0;
+                pos.y = 0;
+            }
+
+            prevPos = pos;
+
+        }
+        
+
+       /* boxBetween = GameObject.Find("obstacle1");
         boxOutside = GameObject.Find("obstacle2");
         boxBetween.GetComponent<MovementBoxes>().enabled = false;
-        boxOutside.GetComponent<MovementBoxes>().enabled = false;
+        boxOutside.GetComponent<MovementBoxes>().enabled = false;*/
     }
 
     void Update()
@@ -66,9 +123,9 @@ public class Balance1Script : MonoBehaviour {
             if (body.IsTracked)
             {
                 //Start the boxes
-                boxBetween.GetComponent<MovementBoxes>().enabled = true;
+                /*boxBetween.GetComponent<MovementBoxes>().enabled = true;
                 boxOutside.GetComponent<MovementBoxes>().enabled = true;
-
+                */
 
 
                 //Default position player (-0.00532963, 0.594, -8.363)

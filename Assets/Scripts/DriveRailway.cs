@@ -18,6 +18,7 @@ public class DriveRailway : MonoBehaviour
     static public int nrCoins = 0;
     public GameObject CoinPrefab;
     public Text points;
+    public int totalNrCoins = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,33 +29,46 @@ public class DriveRailway : MonoBehaviour
 
 
 #warning Gjøre om dette, høre med Elise hva hun tenker!
-        Vector3[] placedCoins = new Vector3[100];
-        for(int i=0; i<300; i++)
+
+        float startPos = 70f;
+        float endPos = 1744f;
+        Vector3 prevPos = new Vector3(0,0,70f);
+        while (prevPos.z < 1744f)
         {
             Vector3 pos;
             pos.y = 5.55f;
-            if(Random.value < 0.5)
+            float randomValue = Random.value;
+            if(randomValue < 0.4)
             {
-                pos.x = -4.45f;
+                pos.x = -4.6f;
+            }
+            else if (randomValue < 0.8)
+            {
+                pos.x = 4.6f;
             }
             else
             {
-                pos.x = 4.45f;
+                pos.x = 0f;
             }
-            pos.z = Random.Range(70f, 1744f);
 
-            if (i > 0)
+            if(prevPos.x == pos.x)
+            {               
+                pos.z = prevPos.z + Random.Range(4f, 15f);
+            }
+            else
             {
-                for (int j = i; j <= 0; j--)
-                {
-                    if(pos == placedCoins[j]) //If they have the same position, it has to find a new position
-                    {
-                        Debug.Log("Må finne ny posisjon");
-                    }
-                }
+                pos.z = prevPos.z + Random.Range(10f, 21f);
             }
 
-            Instantiate(CoinPrefab, pos, Quaternion.identity);
+            //pos.z = Random.Range(70f, 1744f);
+
+            if(pos.x != 0)
+            {
+                Instantiate(CoinPrefab, pos, Quaternion.identity);
+                totalNrCoins++;
+            }
+            
+            prevPos = pos;
             
         }
 
@@ -98,8 +112,8 @@ public class DriveRailway : MonoBehaviour
             if (body.IsTracked)
             {                    
                 Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position);
-                Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.AnkleRight].Position);
-                Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.AnkleLeft].Position);
+                Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.KneeRight].Position);
+                Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.KneeLeft].Position);
 
                
                 //distance between the ankles
