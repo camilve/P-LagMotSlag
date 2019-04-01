@@ -7,7 +7,7 @@ public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
     protected GameObject player;
-    public int score = 0;
+    static public int score = 0;
     Material p_material;
     Color boxOutside = new Color(0.840f, 0.281f, 0.334f, 1.000f);
     Color boxBetween = new Color(0.000f, 0.749f, 0.000f, 1.000f);
@@ -15,8 +15,8 @@ public class MovementBoxes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        p_material = GetComponent<Renderer>().material;
-        Debug.Log(p_material.color.Equals(boxBetween));
+        //p_material = GetComponent<Renderer>().material;
+        //Debug.Log(p_material.color.Equals(boxBetween));
         
     }
 
@@ -24,7 +24,7 @@ public class MovementBoxes : MonoBehaviour
 #warning Usikker på om jeg skal lage en update og en fixedUpdate
     void Update()
     {      
-        rb.velocity = new Vector3(0, 0, -200 * Time.deltaTime);
+        rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
         //rb.AddForce(0, 0, -600 * Time.deltaTime);
 
         player = GameObject.Find("Player");
@@ -39,7 +39,48 @@ public class MovementBoxes : MonoBehaviour
 
         //Debug.Log(position1);
 
-        /*Check if the feets are crashing with the obstacles*/
+        Transform thisTransform = this.transform;
+
+        Debug.Log("pos right  " + positionRight);
+
+        
+
+        if(this.transform.position.z < (positionRight.z + this.transform.localScale.z / 2) && this.transform.position.z > (positionRight.z - this.transform.localScale.z / 2))
+        {
+            bool point = true;
+            Debug.Log("Går inn her?");
+            for(int i=0; i<thisTransform.childCount; i++)
+            {
+                Vector3 p = new Vector3(0f, 0f, 0f);
+                Vector3 scale = new Vector3(0f, 0f, 0f);
+
+                p = thisTransform.GetChild(i).position;
+                scale = thisTransform.GetChild(i).localScale;
+
+                if (!(p.x - (scale.x /2) > positionLeft.x && p.x + (scale.x /2) < positionLeft.x) && !(p.x - (scale.x / 2) > positionRight.x && p.x + (scale.x / 2) < positionRight.x))
+                {
+                    Debug.Log(p.x - (scale.x / 2) + "   " + positionLeft.x + "  " + positionRight.x);
+
+                    Debug.Log("Traff ikke denne boksen" + i);
+                }
+                else
+                {
+                    Debug.Log("Minus POENG");
+                    point = false;
+                }
+            }
+            if(point)
+            {
+                score++;
+            }
+        }
+
+
+
+
+        //Debug.Log("x " + this.transform.position);
+
+        /*Check if the feets are crashing with the obstacles
        
         if(this.transform.position.z < (positionRight.z + this.transform.localScale.z /2) && this.transform.position.z > (positionRight.z - this.transform.localScale.z / 2))
         {
@@ -82,7 +123,7 @@ public class MovementBoxes : MonoBehaviour
                     Debug.Log("Minus poeng!!!!!");
                 }
             }
-        }
+        }*/
 
         
     }

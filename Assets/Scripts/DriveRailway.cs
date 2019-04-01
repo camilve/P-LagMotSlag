@@ -110,12 +110,12 @@ public class DriveRailway : MonoBehaviour
                 continue;
             }
             if (body.IsTracked)
-            {                    
-                Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position);
-                Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.KneeRight].Position);
-                Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.KneeLeft].Position);
+            {
+                Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position); ;
+                Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.AnkleRight].Position);
+                Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.AnkleLeft].Position);
 
-               
+
                 //distance between the ankles
                 float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));
 
@@ -150,23 +150,23 @@ public class DriveRailway : MonoBehaviour
                 {
                     if((leftAngleAnkle * 180 / Mathf.PI) > startAngleLeft) //Leans toward left
                     {
-                        player.transform.eulerAngles = new Vector3(0,0, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                        player.transform.eulerAngles = new Vector3(0f,0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                         //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
                     else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                     {
-                        player.transform.eulerAngles = new Vector3(0, 0, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -2);
+                        player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -2);
                         //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
                     else
                     {
-                        player.transform.eulerAngles = new Vector3(0, 0, 0);
+                        player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                     }
 
                 }
                 else
                 {
-                    player.transform.eulerAngles = new Vector3(0, 0, 0);
+                    player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                 }
 
 

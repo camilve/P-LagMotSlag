@@ -11,8 +11,9 @@ public class Balance1Script : MonoBehaviour {
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
 
-    public GameObject boxBetweenPrefab;
-    public GameObject boxOutsidePrefab;
+    public GameObject Left;
+    public GameObject Right;
+    public GameObject Middle;
 
 
     void Start ()
@@ -23,58 +24,43 @@ public class Balance1Script : MonoBehaviour {
         Debug.Log(animator);
 
 
-        Vector3 prevPos = new Vector3(0f, 0f, -5f);
+        Vector3 prevPos = new Vector3(0.16f, 2f, 0f);
+        int prevRandom = 2;
+        Instantiate(Middle, prevPos, Quaternion.identity);
         while (prevPos.z < 540f)
         {
-            Vector3 pos;
-            pos.z = prevPos.z + 5f;
-            int randomVal = Random.Range(0, 4);
-            Debug.Log(randomVal);
+            Vector3 pos = new Vector3(0.16f, 2f, 0f);
+            pos.z = prevPos.z + 7f;
+            int randomVal = Random.Range(0, 3);
+            
 
             if(randomVal == 0)
             {
-                //Left side
-                pos.x = -0.08f;
-                pos.y = 0.6f;
-                if (prevPos.x == 0.08f)
+                //Left side             
+                if (prevRandom == 1)
                 {
-                    pos.z = prevPos.z + 10f;
+                    pos.z = prevPos.z + 11f;
                 }
 
-                Instantiate(boxBetweenPrefab, pos, Quaternion.identity);
+                Instantiate(Left, pos, Quaternion.identity);
             }
             else if (randomVal == 1)
             {
-                //Right side
-                pos.x = 0.08f;
-                pos.y = 0.6f;
-                if (prevPos.x == -0.08f)
+                //Right side              
+                if (prevRandom == 0)
                 {
                     pos.z = prevPos.z + 10f;
                 }
-                Instantiate(boxBetweenPrefab, pos, Quaternion.identity);
+                Instantiate(Right, pos, Quaternion.identity);
             }
             else if (randomVal == 2)
-            {
-                //Left side
-                pos.x = -1f;
-                pos.y = 0.75f;
-                Instantiate(boxOutsidePrefab, pos, Quaternion.identity);
-            }
-            else if (randomVal == 3)
-            {
-                //right side
-                pos.x = 1f;
-                pos.y = 0.75f;
-                Instantiate(boxOutsidePrefab, pos, Quaternion.identity);
-            } 
-            else
-            {
-                pos.x = 0;
-                pos.y = 0;
-            }
+            {                            
+                Instantiate(Middle, pos, Quaternion.identity);
+            }         
+            
 
             prevPos = pos;
+            prevRandom = randomVal;
 
         }
         
