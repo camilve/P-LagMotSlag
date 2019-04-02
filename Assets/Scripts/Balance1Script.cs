@@ -15,6 +15,8 @@ public class Balance1Script : MonoBehaviour {
     public GameObject Right;
     public GameObject Middle;
 
+    private int counter = 0;
+
 
     void Start ()
     {
@@ -30,7 +32,10 @@ public class Balance1Script : MonoBehaviour {
         while (prevPos.z < 540f)
         {
             Vector3 pos = new Vector3(0.16f, 2f, 0f);
-            pos.z = prevPos.z + 7f;
+
+            float randomZpos = Random.Range(7f, 12f);
+
+            pos.z = prevPos.z + randomZpos;
             int randomVal = Random.Range(0, 3);
             
 
@@ -39,7 +44,7 @@ public class Balance1Script : MonoBehaviour {
                 //Left side             
                 if (prevRandom == 1)
                 {
-                    pos.z = prevPos.z + 11f;
+                    pos.z = prevPos.z + randomZpos + 5f;
                 }
 
                 Instantiate(Left, pos, Quaternion.identity);
@@ -49,7 +54,7 @@ public class Balance1Script : MonoBehaviour {
                 //Right side              
                 if (prevRandom == 0)
                 {
-                    pos.z = prevPos.z + 10f;
+                    pos.z = prevPos.z + randomZpos + 5f;
                 }
                 Instantiate(Right, pos, Quaternion.identity);
             }
@@ -108,6 +113,7 @@ public class Balance1Script : MonoBehaviour {
             }
             if (body.IsTracked)
             {
+                
                 //Start the boxes
                 /*boxBetween.GetComponent<MovementBoxes>().enabled = true;
                 boxOutside.GetComponent<MovementBoxes>().enabled = true;

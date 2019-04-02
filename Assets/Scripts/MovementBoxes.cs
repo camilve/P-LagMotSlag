@@ -57,7 +57,7 @@ public class MovementBoxes : MonoBehaviour
                 p = thisTransform.GetChild(i).position;
                 scale = thisTransform.GetChild(i).localScale;
 
-                if (!(p.x - (scale.x /2) > positionLeft.x && p.x + (scale.x /2) < positionLeft.x) && !(p.x - (scale.x / 2) > positionRight.x && p.x + (scale.x / 2) < positionRight.x))
+                if (!(p.x - (scale.x /2) < positionLeft.x && p.x + (scale.x /2) > positionLeft.x) && !(p.x - (scale.x / 2) < positionRight.x && p.x + (scale.x / 2) > positionRight.x))
                 {
                     Debug.Log(p.x - (scale.x / 2) + "   " + positionLeft.x + "  " + positionRight.x);
 

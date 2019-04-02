@@ -19,6 +19,8 @@ public class DriveRailway : MonoBehaviour
     public GameObject CoinPrefab;
     public Text points;
     public int totalNrCoins = 0;
+    private bool infoFinished = false;
+    public Text info;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,9 @@ public class DriveRailway : MonoBehaviour
 
 
 #warning Gjøre om dette, høre med Elise hva hun tenker!
+        //Test coin
+        Instantiate(CoinPrefab, new Vector3(4.6f, 5.55f, 30f), Quaternion.identity);
+
 
         float startPos = 70f;
         float endPos = 1744f;
@@ -72,6 +77,7 @@ public class DriveRailway : MonoBehaviour
             
         }
 
+        info.text = "Stå ";
         
     }
 
@@ -132,9 +138,7 @@ public class DriveRailway : MonoBehaviour
                 float rightAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(dSpineRight, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineRight * d));
 
 
-                //Debug.Log("left ankle: " + leftAngleAnkle * 180 / Mathf.PI);
-                //Debug.Log("right ankle: " + rightAngleAnkle * 180 / Mathf.PI);
-
+             
                 //Save start position
                 if (counter == 1)
                 {
@@ -142,6 +146,16 @@ public class DriveRailway : MonoBehaviour
                     startAngleLeft = leftAngleAnkle * 180 / Mathf.PI;
                     startAngleRight = rightAngleAnkle * 180 / Mathf.PI;
                     counter++;
+                }
+
+                while(!infoFinished)
+                {
+                    info.text = "";
+
+
+
+
+                    infoFinished = true;
                 }
 
                 
@@ -183,7 +197,11 @@ public class DriveRailway : MonoBehaviour
     }
     private Vector3 GetVector(CameraSpacePoint point)
     {
-        return new Vector3(point.X, point.Y, point.Z);
+        Vector3 v = new Vector3(0f, 0f, 0f);
+        v.x = point.X;
+        v.y = point.Y;
+        v.z = point.Z;
+        return v;
     }
 
 
