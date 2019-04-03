@@ -15,12 +15,13 @@ public class DriveRailway : MonoBehaviour
     private int counter;
     private float startAngleLeft;
     private float startAngleRight;
-    static public int nrCoins = 0;
+    public static int nrCoins = 0;
     public GameObject CoinPrefab;
     public Text points;
     public int totalNrCoins = 0;
     private bool infoFinished = false;
     public Text info;
+    private bool first = true;
 
     // Start is called before the first frame update
     void Start()
@@ -76,14 +77,17 @@ public class DriveRailway : MonoBehaviour
             prevPos = pos;
             
         }
-
-        info.text = "Stå ";
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(first)
+        {
+            infoRound();
+        }
+
 
         points.text = "" +nrCoins;
         if (BodySourceManager == null)
@@ -202,6 +206,131 @@ public class DriveRailway : MonoBehaviour
         v.y = point.Y;
         v.z = point.Z;
         return v;
+    }
+
+
+
+
+
+
+
+    private void infoRound ()
+    {
+        while(nrCoins < 1)
+        {
+            if (BodySourceManager == null)
+            {
+                player.transform.eulerAngles = new Vector3(0, 0, 0);
+                Debug.Log("1");
+                return;
+            }
+
+            _BodyManager = BodySourceManager.GetComponent<BodySourceManager>();
+            if (_BodyManager == null)
+            {
+                player.transform.eulerAngles = new Vector3(0, 0, 0);
+                Debug.Log("2");
+                return;
+            }
+
+            Kinect.Body[] data = _BodyManager.GetData();
+            if (data == null)
+            {
+                player.transform.eulerAngles = new Vector3(0, 0, 0);
+                Debug.Log("3 " + _BodyManager);
+                return;
+            }
+
+            foreach (var body in data)
+            {
+                if (body == null)
+                {
+                    continue;
+                }
+                if (body.IsTracked)
+                {
+                    Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position); ;
+                    Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.AnkleRight].Position);
+                    Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.AnkleLeft].Position);
+
+
+                    //distance between the ankles
+                    float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));
+
+                    //Distance between from ankle that the spine should be (center of gravity)
+                    float optimalSpinePos = d / 2;
+
+
+                    //distance from spine to left ankle and distance from spine to right ankle
+                    float dSpineLeft = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleLeft.x), 2) + Mathf.Pow((spinePos.y - ankleLeft.y), 2) + Mathf.Pow((spinePos.z - ankleLeft.z), 2));
+                    float dSpineRight = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleRight.x), 2) + Mathf.Pow((spinePos.y - ankleRight.y), 2) + Mathf.Pow((spinePos.z - ankleRight.z), 2));
+
+                    //Find angle of left ankle to floor
+                    float leftAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineRight, 2) - Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineLeft * d));
+                    float rightAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(dSpineRight, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineRight * d));
+
+
+
+                    //Save start position
+                    if (counter == 1)
+                    {                      
+                        spineStartPos = spinePos;
+                        startAngleLeft = leftAngleAnkle * 180 / Mathf.PI;
+                        startAngleRight = rightAngleAnkle * 180 / Mathf.PI;
+                        counter++;
+                    }
+
+
+                    if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.05)
+                    {
+                        if ((leftAngleAnkle * 180 / Mathf.PI) > startAngleLeft) //Leans toward left
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                            //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                        }
+                        else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -2);
+                            //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                            rb.velocity = new Vector3(0f, 0f, 100f * Time.deltaTime);
+
+                        }
+                        else
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                            info.text = "Len deg over mot høyre for å fange mynten";
+                            rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
+                            if(player.transform.position.z == 28f)
+                            {
+                                rb.velocity = new Vector3(0f, 0f, 0f);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                        info.text = "Len deg over mot høyre for å fange mynten";
+                        rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
+                        if (player.transform.position.z == 28f)
+                        {
+                            rb.velocity = new Vector3(0f, 0f, 0f);
+                        }
+                    }
+
+                    
+                    
+
+
+                    //rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
+                }
+            }                     
+        }
+
+
+
+
+        first = false;
     }
 
 

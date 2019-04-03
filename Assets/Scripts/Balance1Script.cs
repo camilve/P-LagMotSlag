@@ -11,11 +11,15 @@ public class Balance1Script : MonoBehaviour {
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
 
+    private bool first = true;
+
     public GameObject Left;
     public GameObject Right;
     public GameObject Middle;
 
     private int counter = 0;
+
+    private List<GameObject> prefabList = new List<GameObject>();
 
 
     void Start ()
@@ -47,7 +51,8 @@ public class Balance1Script : MonoBehaviour {
                     pos.z = prevPos.z + randomZpos + 5f;
                 }
 
-                Instantiate(Left, pos, Quaternion.identity);
+                GameObject l = Instantiate(Left, pos, Quaternion.identity);
+                prefabList.Add(l);
             }
             else if (randomVal == 1)
             {
@@ -56,11 +61,13 @@ public class Balance1Script : MonoBehaviour {
                 {
                     pos.z = prevPos.z + randomZpos + 5f;
                 }
-                Instantiate(Right, pos, Quaternion.identity);
+                GameObject l = Instantiate(Right, pos, Quaternion.identity);
+                prefabList.Add(l);
             }
             else if (randomVal == 2)
-            {                            
-                Instantiate(Middle, pos, Quaternion.identity);
+            {
+                GameObject l = Instantiate(Middle, pos, Quaternion.identity);
+                prefabList.Add(l);
             }         
             
 
@@ -68,12 +75,16 @@ public class Balance1Script : MonoBehaviour {
             prevRandom = randomVal;
 
         }
-        
 
-       /* boxBetween = GameObject.Find("obstacle1");
-        boxOutside = GameObject.Find("obstacle2");
-        boxBetween.GetComponent<MovementBoxes>().enabled = false;
-        boxOutside.GetComponent<MovementBoxes>().enabled = false;*/
+
+        
+        
+        
+        foreach (GameObject boxes in prefabList)
+        {
+            boxes.GetComponent<MovementBoxes>().enabled = false;
+        }
+
     }
 
     void Update()
@@ -85,9 +96,19 @@ public class Balance1Script : MonoBehaviour {
     //a callback for calculating IK
     void OnAnimatorIK()
     {
+        if(first)
+        {
+            test();
+        }
+        
         if (BodySourceManager == null)
         {
             Debug.Log("1");
+            foreach (GameObject boxes in prefabList)
+            {
+                boxes.GetComponent<MovementBoxes>().enabled = false;
+            }
+
             return;
         }
 
@@ -95,6 +116,11 @@ public class Balance1Script : MonoBehaviour {
         if (_BodyManager == null)
         {
             Debug.Log("2");
+            foreach (GameObject boxes in prefabList)
+            {
+                boxes.GetComponent<MovementBoxes>().enabled = false;
+            }
+
             return;
         }
 
@@ -102,6 +128,11 @@ public class Balance1Script : MonoBehaviour {
         if (data == null)
         {
             Debug.Log("3 " + _BodyManager);
+            foreach (GameObject boxes in prefabList)
+            {
+                boxes.GetComponent<MovementBoxes>().enabled = false;
+            }
+
             return;
         }
 
@@ -113,11 +144,13 @@ public class Balance1Script : MonoBehaviour {
             }
             if (body.IsTracked)
             {
-                
+
                 //Start the boxes
-                /*boxBetween.GetComponent<MovementBoxes>().enabled = true;
-                boxOutside.GetComponent<MovementBoxes>().enabled = true;
-                */
+                foreach (GameObject boxes in prefabList)
+                {
+                    boxes.GetComponent<MovementBoxes>().enabled = true;
+                }
+
 
 
                 //Default position player (-0.00532963, 0.594, -8.363)
@@ -181,5 +214,12 @@ public class Balance1Script : MonoBehaviour {
     {
         return new Vector3(point.X, point.Y, -point.Z);
     }
+
+    private void test()
+    {      
+        
+        first = false;
+    }
+
 
 }

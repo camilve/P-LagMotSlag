@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7289538350731839310}
   - component: {fileID: 7289538350731839311}
   m_Layer: 0
-  m_Name: Middle
+  m_Name: MiddlePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,14 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SwitchScene : MonoBehaviour
 {
-    static public string loadScene = "";
-    // Start is called before the first frame update
+    public static string loadScene = "";
+
+    [SerializeField]
+    private int level;
+
+    public static int lvl;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -21,12 +25,16 @@ public class SwitchScene : MonoBehaviour
     public void GotoBalance1Scene()
     {
         loadScene = "Balance 1";
+        lvl = level;
+        Debug.Log(lvl);
         SceneManager.LoadScene("PauseScreen");
     }
 
     public void GotoBalance2Scene()
     {
         loadScene = "Balance 2";
+        lvl = level;
+        Debug.Log(level);
         SceneManager.LoadScene("PauseScreen");
     }
 

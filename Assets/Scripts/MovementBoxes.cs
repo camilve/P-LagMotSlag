@@ -7,10 +7,7 @@ public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
     protected GameObject player;
-    static public int score = 0;
-    Material p_material;
-    Color boxOutside = new Color(0.840f, 0.281f, 0.334f, 1.000f);
-    Color boxBetween = new Color(0.000f, 0.749f, 0.000f, 1.000f);
+    public static int score = 0;   
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +20,23 @@ public class MovementBoxes : MonoBehaviour
     // FixedUpdate because we use it to mess with physics
 #warning Usikker på om jeg skal lage en update og en fixedUpdate
     void Update()
-    {      
-        rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
-        //rb.AddForce(0, 0, -600 * Time.deltaTime);
+    {
+        //The speed is relative to the level the user has chosen. 
+#warning Må endre til forskjellig fart.
+        if(SwitchScene.lvl == 1)
+        {
+            rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+        } 
+        else if (SwitchScene.lvl == 2)
+        {
+            rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+        }
+        else
+        {
+            rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+        }
+        
+        
 
         player = GameObject.Find("Player");
         //Debug.Log(player);

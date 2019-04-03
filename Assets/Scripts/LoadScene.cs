@@ -10,7 +10,7 @@ public class LoadScene : MonoBehaviour
     private bool loadScene = false;
 
     public GameObject BodySourceManager;
-    private BodySourceManager _BodyManager;
+    private BodySourceManager _BodyManager;    
 
     [SerializeField]
     private int scene;
