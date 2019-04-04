@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Windows.Kinect;
 using Kinect = Windows.Kinect;
 
@@ -19,7 +20,10 @@ public class Balance1Script : MonoBehaviour {
 
     private int counter = 0;
 
+    public Text points;
+
     private List<GameObject> prefabList = new List<GameObject>();
+    public static bool enableBoxes = false;
 
 
     void Start ()
@@ -95,12 +99,7 @@ public class Balance1Script : MonoBehaviour {
 
     //a callback for calculating IK
     void OnAnimatorIK()
-    {
-        if(first)
-        {
-            test();
-        }
-        
+    {            
         if (BodySourceManager == null)
         {
             Debug.Log("1");
@@ -148,9 +147,10 @@ public class Balance1Script : MonoBehaviour {
                 //Start the boxes
                 foreach (GameObject boxes in prefabList)
                 {
-                    boxes.GetComponent<MovementBoxes>().enabled = true;
+                    boxes.GetComponent<MovementBoxes>().enabled = enableBoxes;
                 }
 
+                points.text = ""+MovementBoxes.score;
 
 
                 //Default position player (-0.00532963, 0.594, -8.363)

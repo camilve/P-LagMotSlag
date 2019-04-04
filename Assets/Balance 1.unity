@@ -468,6 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d79703c2ef92ae44b6c82e313dc3800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
 --- !u!4 &304665504
 Transform:
   m_ObjectHideFlags: 0
@@ -1068,6 +1069,7 @@ MonoBehaviour:
   Left: {fileID: 4719144613548852974, guid: 69e96786e2f5ef846a6e9bc898275ddd, type: 3}
   Right: {fileID: 5404552472762489303, guid: 679f4ac116fa5b44fb5420f1404cd869, type: 3}
   Middle: {fileID: 7289538350731839308, guid: 0c985315ce0f41a40b9410497ecf5b40, type: 3}
+  points: {fileID: 280382093}
 --- !u!95 &1179087424
 Animator:
   serializedVersion: 3

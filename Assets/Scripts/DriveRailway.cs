@@ -22,7 +22,6 @@ public class DriveRailway : MonoBehaviour
     public int totalNrCoins = 0;
     private bool infoFinished = false;
     public Text info;
-    private bool first = true;
     private float speed;
 
     // Start is called before the first frame update
@@ -31,17 +30,17 @@ public class DriveRailway : MonoBehaviour
         player = GameObject.Find("Player");
         counter = 1;
         spineStartPos = new Vector3(0, 0, 0);
-
+        Quaternion rotation = Quaternion.Euler(90, 0, 0);
 
 #warning Gjøre om dette, høre med Elise hva hun tenker!
         //Test coin
-        Instantiate(CoinPrefab, new Vector3(4.6f, 5.55f, 30f), Quaternion.identity);
+        Instantiate(CoinPrefab, new Vector3(4.6f, 5.55f, 30f), rotation);
 
 
         float startPos = 70f;
         float endPos = 1744f;
-        Vector3 prevPos = new Vector3(0,0,70f);
-        while (prevPos.z < 1744f)
+        Vector3 prevPos = new Vector3(0,0,startPos);
+        while (prevPos.z < endPos)
         {
             Vector3 pos;
             pos.y = 5.55f;
@@ -68,11 +67,9 @@ public class DriveRailway : MonoBehaviour
                 pos.z = prevPos.z + Random.Range(10f, 21f);
             }
 
-            //pos.z = Random.Range(70f, 1744f);
-
             if(pos.x != 0)
             {
-                Instantiate(CoinPrefab, pos, Quaternion.identity);
+                Instantiate(CoinPrefab, pos, rotation);
                 totalNrCoins++;
             }
             
@@ -92,7 +89,7 @@ public class DriveRailway : MonoBehaviour
             speed = 500f;
         }
 
-        
+
     }
 
 
@@ -105,7 +102,7 @@ public class DriveRailway : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {              
         if (nrCoins == 0)
         {
             infoRound();
@@ -191,13 +188,25 @@ public class DriveRailway : MonoBehaviour
                     {
                         if ((leftAngleAnkle * 180 / Mathf.PI) > startAngleLeft) //Leans toward left
                         {
-                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
-                            //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                            if(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 > 30)
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, 30f);
+                            }
+                            else
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
+                            }                     
                         }
                         else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                         {
-                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3);
-                            //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                            if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 > -30)
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, -30f);
+                            }
+                            else
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3);
+                            }
                         }
                         else
                         {
@@ -227,7 +236,7 @@ public class DriveRailway : MonoBehaviour
         {
             SceneManager.LoadScene("Menu");
         }
-        
+
     }
     private Vector3 GetVector(CameraSpacePoint point)
     {
@@ -314,13 +323,27 @@ public class DriveRailway : MonoBehaviour
                 {
                     if ((leftAngleAnkle * 180 / Mathf.PI) > startAngleLeft) //Leans toward left
                     {
+                        if (Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 > 30)
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, 30f);
+                        }
+                        else
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
+                        }
                         player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
                     else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                     {
-                        player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3);
-                        //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
+                        if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 > -30)
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, -30f);
+                        }
+                        else
+                        {
+                            player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3);
+                        }
                         rb.velocity = new Vector3(0f, 0f, 200f * Time.deltaTime);
 
                     }
@@ -346,21 +369,7 @@ public class DriveRailway : MonoBehaviour
                         rb.velocity = new Vector3(0f, 0f, 0f);
                     }
                 }
-
-                    
-                    
-
-
-                //rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
             }
         }
-       
-
-
-
-
-        first = false;
     }
-
-
 }
