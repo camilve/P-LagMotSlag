@@ -7,14 +7,15 @@ public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
     protected GameObject player;
-    public static int score = 0;   
+    public static int score = 0;
+
+    private bool isGivenPoint = false;
 
     // Start is called before the first frame update
     void Start()
-    {
-        //p_material = GetComponent<Renderer>().material;
-        //Debug.Log(p_material.color.Equals(boxBetween));
-        
+    {     
+        Balance1Script.enableBoxes = true;
+
     }
 
     // FixedUpdate because we use it to mess with physics
@@ -32,15 +33,15 @@ public class MovementBoxes : MonoBehaviour
         Vector3 positionRight = transRight.position;
         Vector3 positionLeft = transLeft.position;
 
-        //Debug.Log(position1);
 
         Transform thisTransform = this.transform;
 
         if (score < 2)
         {
-            if(Mathf.Abs(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2)) < 0.5f)
+            Debug.Log(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2));
+            if (Mathf.Abs(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2)) < 0.5f)
             {
-                bool hit = true;
+                bool hit = false;
 
                 for (int i = 0; i < thisTransform.childCount; i++)
                 {
@@ -48,35 +49,37 @@ public class MovementBoxes : MonoBehaviour
                     Vector3 scale = new Vector3(0f, 0f, 0f);
                     p = thisTransform.GetChild(i).position;
                     scale = thisTransform.GetChild(i).localScale;
-                    Debug.Log("pos " + positionRight.x + " box " + p.x + (scale.x / 2));
                     if ((p.x - (scale.x / 2) < positionLeft.x && p.x + (scale.x / 2) > positionLeft.x) || (p.x - (scale.x / 2) < positionRight.x && p.x + (scale.x / 2) > positionRight.x))
                     {
                         //rb.velocity = new Vector3(0f, 0f, -50f * Time.deltaTime);
                         hit = true;
                     }
                     
-                    
-                   /* if(hit)
-                    {
-                        rb.velocity = new Vector3(0f, 0f, 0f);
-                        Balance1Script.enableBoxes = false;
-                    }
-                    else
-                    {
-                        rb.velocity = new Vector3(0f, 0f, -50f * Time.deltaTime);                       
-                        Balance1Script.enableBoxes = true;
-                    }*/
+                 
                 }
                 if (hit)
                 {
-                    rb.velocity = new Vector3(0f, 0f, 0f);
+                    foreach (GameObject boxes in Balance1Script.infoBoxes)
+                    {
+                        boxes.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
                     Balance1Script.enableBoxes = false;
                 }
                 else
                 {
-                    rb.velocity = new Vector3(0f, 0f, -50f * Time.deltaTime);
+                    foreach (GameObject boxes in Balance1Script.infoBoxes)
+                    {
+                        boxes.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, -50f * Time.deltaTime);
+                    }
+                   
                     Balance1Script.enableBoxes = true;
-                    score++;
+                    if(!isGivenPoint)
+                    {
+                        Debug.Log("hei");
+                        score++;
+                        isGivenPoint = true;
+                    }
+                                   
                 }
             }
 
@@ -109,7 +112,6 @@ public class MovementBoxes : MonoBehaviour
             if (this.transform.position.z < (positionRight.z + this.transform.localScale.z / 2) && this.transform.position.z > (positionRight.z - this.transform.localScale.z / 2))
             {
                 bool point = true;
-                Debug.Log("Går inn her?");
                 for (int i = 0; i < thisTransform.childCount; i++)
                 {
                     Vector3 p = new Vector3(0f, 0f, 0f);
@@ -121,18 +123,19 @@ public class MovementBoxes : MonoBehaviour
                     if (!(p.x - (scale.x / 2) < positionLeft.x && p.x + (scale.x / 2) > positionLeft.x) && !(p.x - (scale.x / 2) < positionRight.x && p.x + (scale.x / 2) > positionRight.x))
                     {
                         Debug.Log(p.x - (scale.x / 2) + "   " + positionLeft.x + "  " + positionRight.x);
-
-                        Debug.Log("Traff ikke denne boksen" + i);
                     }
                     else
                     {
-                        Debug.Log("Minus POENG");
                         point = false;
                     }
                 }
                 if (point)
                 {
-                    score++;
+                    if (!isGivenPoint)
+                    {
+                        score++;
+                        isGivenPoint = true;
+                    }
                 }
             }
         }       

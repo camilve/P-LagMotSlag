@@ -25,6 +25,7 @@ public class Balance1Script : MonoBehaviour {
     private List<GameObject> prefabList = new List<GameObject>();
     public static bool enableBoxes = false;
 
+    public static List<GameObject> infoBoxes = new List<GameObject>();
 
     void Start ()
     {
@@ -35,8 +36,10 @@ public class Balance1Script : MonoBehaviour {
 
 
         Vector3 prevPos = new Vector3(0.16f, 2f, 0f);
-        int prevRandom = 2;
-        Instantiate(Middle, prevPos, Quaternion.identity);
+        int prevRandom = 2;        
+        infoBoxes.Add(Instantiate(Middle, prevPos, Quaternion.identity));
+        prevPos.z = prevPos.z + 10f;
+        infoBoxes.Add(Instantiate(Right, prevPos, Quaternion.identity));
         while (prevPos.z < 540f)
         {
             Vector3 pos = new Vector3(0.16f, 2f, 0f);
@@ -85,6 +88,10 @@ public class Balance1Script : MonoBehaviour {
         
         
         foreach (GameObject boxes in prefabList)
+        {
+            boxes.GetComponent<MovementBoxes>().enabled = false;
+        }
+        foreach (GameObject boxes in infoBoxes)
         {
             boxes.GetComponent<MovementBoxes>().enabled = false;
         }
@@ -145,6 +152,10 @@ public class Balance1Script : MonoBehaviour {
             {
 
                 //Start the boxes
+                foreach (GameObject boxes in infoBoxes)
+                {
+                    boxes.GetComponent<MovementBoxes>().enabled = true;
+                }
                 foreach (GameObject boxes in prefabList)
                 {
                     boxes.GetComponent<MovementBoxes>().enabled = enableBoxes;
