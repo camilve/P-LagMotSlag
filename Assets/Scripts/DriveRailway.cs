@@ -26,7 +26,7 @@ public class DriveRailway : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {      
         player = GameObject.Find("Player");
         counter = 1;
         spineStartPos = new Vector3(0, 0, 0);
@@ -90,6 +90,8 @@ public class DriveRailway : MonoBehaviour
         }
 
 
+        FindObjectOfType<AudioManager>().Stop("Theme");
+
     }
 
 
@@ -105,6 +107,7 @@ public class DriveRailway : MonoBehaviour
     {              
         if (nrCoins == 0)
         {
+            wait();
             infoRound();
         }
         else
@@ -254,7 +257,8 @@ public class DriveRailway : MonoBehaviour
 
 
     private void infoRound ()
-    {        
+    {
+        info.text = "sg";
         if (BodySourceManager == null)
         {
             player.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -331,7 +335,7 @@ public class DriveRailway : MonoBehaviour
                         {
                             player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         }
-                        player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
+                        //player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
                     else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
@@ -371,5 +375,11 @@ public class DriveRailway : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator wait()
+    {
+        info.text = "Gelo";
+        yield return new WaitForSeconds(10);
     }
 }

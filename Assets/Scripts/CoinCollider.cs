@@ -20,6 +20,7 @@ public class CoinCollider : MonoBehaviour
     {
         if (other.name == "Player") {
             DriveRailway.nrCoins++;
+            FindObjectOfType<AudioManager>().Play("CoinCollect");
             Destroy(gameObject);
         }
     }
