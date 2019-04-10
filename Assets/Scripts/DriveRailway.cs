@@ -107,7 +107,6 @@ public class DriveRailway : MonoBehaviour
     {              
         if (nrCoins == 0)
         {
-            wait();
             infoRound();
         }
         else
@@ -335,6 +334,13 @@ public class DriveRailway : MonoBehaviour
                         {
                             player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         }
+
+                        Debug.Log("herrr");
+                        rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
+                        if (player.transform.position.z > 28f)
+                        {
+                            rb.velocity = new Vector3(0f, 0f, 0f);
+                        }
                         //player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
@@ -355,7 +361,8 @@ public class DriveRailway : MonoBehaviour
                     {
                         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                         info.text = "Len deg over mot høyre for å fange mynten";
-                        rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
+                        Debug.Log("jksf");                        
+                        rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
                         if(player.transform.position.z > 28f)
                         {
                             rb.velocity = new Vector3(0f, 0f, 0f);
@@ -367,7 +374,8 @@ public class DriveRailway : MonoBehaviour
                 {
                     player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                     info.text = "Len deg over mot høyre for å fange mynten";
-                    rb.velocity = new Vector3(0, 0, 100 * Time.deltaTime);
+                    Debug.Log("jksf");
+                    rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
                     if (player.transform.position.z > 28f)
                     {
                         rb.velocity = new Vector3(0f, 0f, 0f);
@@ -375,11 +383,5 @@ public class DriveRailway : MonoBehaviour
                 }
             }
         }
-    }
-
-    IEnumerator wait()
-    {
-        info.text = "Gelo";
-        yield return new WaitForSeconds(10);
     }
 }
