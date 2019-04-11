@@ -38,7 +38,7 @@ public class MovementBoxes : MonoBehaviour
 
         if (score < 2)
         {
-            Debug.Log(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2));
+            //Debug.Log(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2));
             if (Mathf.Abs(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2)) < 0.5f)
             {
                 bool hit = false;
@@ -61,6 +61,7 @@ public class MovementBoxes : MonoBehaviour
                 {
                     foreach (GameObject boxes in Balance1Script.infoBoxes)
                     {
+                        Debug.Log("hei");
                         boxes.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     }
                     Balance1Script.enableBoxes = false;

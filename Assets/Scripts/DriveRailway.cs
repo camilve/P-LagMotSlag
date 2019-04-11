@@ -24,6 +24,9 @@ public class DriveRailway : MonoBehaviour
     public Text info;
     private float speed;
 
+#warning Bytte navn på denne!!!
+    private bool test = false;
+
     // Start is called before the first frame update
     void Start()
     {      
@@ -104,10 +107,17 @@ public class DriveRailway : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {              
+    {         
+        
+        
         if (nrCoins == 0)
         {
-            infoRound();
+            if (!test)
+            {
+                StartCoroutine(infoAudio());
+
+            }
+            //infoRound();
         }
         else
         {
@@ -320,7 +330,7 @@ public class DriveRailway : MonoBehaviour
                     counter++;
                 }
 
-                Debug.Log(player.transform.position.z);
+                //Debug.Log(player.transform.position.z);
 
                 if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.05)
                 {
@@ -384,4 +394,18 @@ public class DriveRailway : MonoBehaviour
             }
         }
     }
+
+
+    IEnumerator infoAudio()
+    {
+        test = true;
+        Debug.Log("coroutine");
+        FindObjectOfType<AudioManager>().Play("Balance2");
+        float songLength = GameObject.Find("AudioInfo").GetComponent<UnityEngine.AudioSource>().clip.length;
+        Debug.Log(songLength);
+        yield return new WaitForSeconds(songLength);
+        FindObjectOfType<AudioManager>().Play("Theme");
+        infoRound();
+    }
+
 }

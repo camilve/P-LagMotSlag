@@ -56,3 +56,15 @@ MonoBehaviour:
     volume: 0.582
     pitch: 0.49
     source: {fileID: 0}
+  - name: Balance1
+    clip: {fileID: 8300000, guid: 54a14e5cb248ba94c8cee5d7cf444276, type: 3}
+    loop: 0
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  - name: Balance2
+    clip: {fileID: 8300000, guid: e41122d401830134ca068ffbaa9c9268, type: 3}
+    loop: 0
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
