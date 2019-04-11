@@ -24,8 +24,9 @@ public class DriveRailway : MonoBehaviour
     public Text info;
     private float speed;
 
-#warning Bytte navn på denne!!!
-    private bool test = false;
+    public static float percent = 0;
+
+    private bool infoShowed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +113,7 @@ public class DriveRailway : MonoBehaviour
         
         if (nrCoins == 0)
         {
-            if (!test)
+            if (!infoShowed)
             {
                 StartCoroutine(infoAudio());
 
@@ -246,6 +247,7 @@ public class DriveRailway : MonoBehaviour
 
         if(player.transform.position.z > 1744f)
         {
+            percent = Mathf.Round(nrCoins / totalNrCoins * 100);
             SceneManager.LoadScene("Menu");
         }
 
@@ -398,7 +400,7 @@ public class DriveRailway : MonoBehaviour
 
     IEnumerator infoAudio()
     {
-        test = true;
+        infoShowed = true;
         Debug.Log("coroutine");
         FindObjectOfType<AudioManager>().Play("Balance2");
         float songLength = GameObject.Find("AudioInfo").GetComponent<UnityEngine.AudioSource>().clip.length;
