@@ -27,6 +27,7 @@ public class DriveRailway : MonoBehaviour
     public static float percent = 0;
 
     private bool infoShowed = false;
+    private bool firstInfoShowed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -93,8 +94,8 @@ public class DriveRailway : MonoBehaviour
             speed = 500f;
         }
 
-
-        FindObjectOfType<AudioManager>().Stop("Theme");
+        //Debug.Log(FindObjectOfType<AudioManager>());
+        //FindObjectOfType<AudioManager>().Stop("Theme");
 
     }
 
@@ -115,10 +116,17 @@ public class DriveRailway : MonoBehaviour
         {
             if (!infoShowed)
             {
-                StartCoroutine(infoAudio());
-
+                if (!firstInfoShowed)
+                {
+                    FindObjectOfType<AudioManager>().Stop("Theme");
+                    StartCoroutine(infoAudio());
+                }
+            } 
+            else
+            {
+                infoRound();
             }
-            //infoRound();
+
         }
         else
         {
@@ -208,7 +216,7 @@ public class DriveRailway : MonoBehaviour
                             else
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
-                            }                     
+                            }
                         }
                         else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                         {
@@ -400,13 +408,14 @@ public class DriveRailway : MonoBehaviour
 
     IEnumerator infoAudio()
     {
-        infoShowed = true;
+        firstInfoShowed = true;
         Debug.Log("coroutine");
         FindObjectOfType<AudioManager>().Play("Balance2");
         float songLength = GameObject.Find("AudioInfo").GetComponent<UnityEngine.AudioSource>().clip.length;
         Debug.Log(songLength);
         yield return new WaitForSeconds(songLength);
         FindObjectOfType<AudioManager>().Play("Theme");
+        infoShowed = true;
         infoRound();
     }
 
