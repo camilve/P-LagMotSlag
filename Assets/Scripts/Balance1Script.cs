@@ -24,10 +24,10 @@ public class Balance1Script : MonoBehaviour {
 
     public Text points;
 
-    private List<GameObject> prefabList = new List<GameObject>();
+    private List<GameObject> prefabList;
     public static bool enableBoxes = false;
 
-    public static List<GameObject> infoBoxes = new List<GameObject>();
+    public static List<GameObject> infoBoxes;
 
     private bool infoShowed = false;
     private int infoCounter = 0;
@@ -38,7 +38,8 @@ public class Balance1Script : MonoBehaviour {
         animator = player.GetComponent<Animator>();
         //animator = GetComponent<Animator>();
         Debug.Log(animator);
-
+        infoBoxes = new List<GameObject>();
+        prefabList = new List<GameObject>();
 
         Vector3 prevPos = new Vector3(0.16f, 2f, 0f);
         int prevRandom = 2;        
@@ -100,7 +101,7 @@ public class Balance1Script : MonoBehaviour {
         {
             boxes.GetComponent<MovementBoxes>().enabled = false;
         }
-
+        
         
 
     }

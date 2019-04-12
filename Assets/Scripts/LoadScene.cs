@@ -84,7 +84,7 @@ public class LoadScene : MonoBehaviour
       
         //Uses the loadScene parameter from SwitchScene script to know which scene to load.
         SceneManager.LoadScene(SwitchScene.loadScene); 
-        DontDestroyOnLoad(BodySourceManager);    
+        //DontDestroyOnLoad(BodySourceManager);    
 
     }
 

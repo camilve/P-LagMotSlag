@@ -94,6 +94,8 @@ public class DriveRailway : MonoBehaviour
             speed = 500f;
         }
 
+        Debug.Log("nr coins " + totalNrCoins);
+
         //Debug.Log(FindObjectOfType<AudioManager>());
         //FindObjectOfType<AudioManager>().Stop("Theme");
 
