@@ -101,7 +101,7 @@ public class Balance1Script : MonoBehaviour {
             boxes.GetComponent<MovementBoxes>().enabled = false;
         }
 
-        FindObjectOfType<AudioManager>().Stop("Theme");
+        
 
     }
 
@@ -116,6 +116,7 @@ public class Balance1Script : MonoBehaviour {
     {
         if (!infoShowed)
         {
+            FindObjectOfType<AudioManager>().Stop("Theme");
             StartCoroutine(infoAudio());
         }
         else

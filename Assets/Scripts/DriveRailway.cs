@@ -24,8 +24,10 @@ public class DriveRailway : MonoBehaviour
     public Text info;
     private float speed;
 
-#warning Bytte navn på denne!!!
-    private bool test = false;
+    public static float percent = 0;
+
+    private bool infoShowed = false;
+    private bool firstInfoShowed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -92,8 +94,8 @@ public class DriveRailway : MonoBehaviour
             speed = 500f;
         }
 
-
-        FindObjectOfType<AudioManager>().Stop("Theme");
+        //Debug.Log(FindObjectOfType<AudioManager>());
+        //FindObjectOfType<AudioManager>().Stop("Theme");
 
     }
 
@@ -112,12 +114,19 @@ public class DriveRailway : MonoBehaviour
         
         if (nrCoins == 0)
         {
-            if (!test)
+            if (!infoShowed)
             {
-                StartCoroutine(infoAudio());
-
+                if (!firstInfoShowed)
+                {
+                    FindObjectOfType<AudioManager>().Stop("Theme");
+                    StartCoroutine(infoAudio());
+                }
+            } 
+            else
+            {
+                infoRound();
             }
-            //infoRound();
+
         }
         else
         {
@@ -184,16 +193,8 @@ public class DriveRailway : MonoBehaviour
                         counter++;
                     }
 
-                    while (!infoFinished)
-                    {
-                        info.text = "";
-
-
-
-
-                        infoFinished = true;
-                    }
-
+                    info.text = "";
+ 
 
 
                     if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.03)
@@ -207,7 +208,7 @@ public class DriveRailway : MonoBehaviour
                             else
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
-                            }                     
+                            }
                         }
                         else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                         {
@@ -232,20 +233,17 @@ public class DriveRailway : MonoBehaviour
                     }
 
 
-                    //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (20 to -20 -- depends on the degrees)
+                    //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (30 to -30 -- depends on the degrees)
 
-
-
-
-                    // Første går det raskere og raskere, kanskje i et høyere level
-                    //rb.AddForce(0, 0, 500 * Time.deltaTime);
-                    rb.velocity = new Vector3(0, 0, speed*Time.deltaTime);
+                 
+                    rb.velocity = new Vector3(0, 0, 500f*Time.deltaTime);
                 }
             }        
         }
 
         if(player.transform.position.z > 1744f)
         {
+            percent = Mathf.Round(nrCoins / totalNrCoins * 100);
             SceneManager.LoadScene("Menu");
         }
 
@@ -267,7 +265,6 @@ public class DriveRailway : MonoBehaviour
 
     private void infoRound ()
     {
-        info.text = "sg";
         if (BodySourceManager == null)
         {
             player.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -398,13 +395,14 @@ public class DriveRailway : MonoBehaviour
 
     IEnumerator infoAudio()
     {
-        test = true;
+        firstInfoShowed = true;
         Debug.Log("coroutine");
         FindObjectOfType<AudioManager>().Play("Balance2");
         float songLength = GameObject.Find("AudioInfo").GetComponent<UnityEngine.AudioSource>().clip.length;
         Debug.Log(songLength);
         yield return new WaitForSeconds(songLength);
         FindObjectOfType<AudioManager>().Play("Theme");
+        infoShowed = true;
         infoRound();
     }
 
