@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44606978, g: 0.49583083, b: 0.5744971, a: 1}
+  m_IndirectSpecularColor: {r: 0.44606942, g: 0.49583024, b: 0.57449615, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,6 +185,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4069177267865194210, guid: c221f41f1c62c5549a82059899352013,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4069177267865194208, guid: c221f41f1c62c5549a82059899352013,
         type: 3}
@@ -673,7 +678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 409, y: 156}
+  m_AnchoredPosition: {x: 409, y: 126.999985}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &280382093
@@ -2277,7 +2282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 296.8, y: 161.59}
+  m_AnchoredPosition: {x: 296.8, y: 132.58998}
   m_SizeDelta: {x: 323.9, y: -65.119}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1257866626
@@ -2737,7 +2742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 316, y: 155.00003}
+  m_AnchoredPosition: {x: 316, y: 126}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1448199688
@@ -3221,7 +3226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -330, y: 154}
+  m_AnchoredPosition: {x: -330, y: 124.999985}
   m_SizeDelta: {x: 39.9, y: 35.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657049677

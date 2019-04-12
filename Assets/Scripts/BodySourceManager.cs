@@ -24,7 +24,7 @@ public class BodySourceManager : MonoBehaviour
             
             if (!_Sensor.IsOpen)
             {
-                _Sensor.Open();
+                _Sensor.Open();               
             }
         }   
     }
