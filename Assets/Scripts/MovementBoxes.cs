@@ -77,6 +77,7 @@ public class MovementBoxes : MonoBehaviour
                     if(!isGivenPoint)
                     {
                         Debug.Log("hei");
+                        FindObjectOfType<AudioManager>().Play("BoxPoint");
                         score++;
                         isGivenPoint = true;
                     }
@@ -135,6 +136,7 @@ public class MovementBoxes : MonoBehaviour
                     if (!isGivenPoint)
                     {
                         score++;
+                        FindObjectOfType<AudioManager>().Play("BoxPoint");
                         isGivenPoint = true;
                     }
                 }

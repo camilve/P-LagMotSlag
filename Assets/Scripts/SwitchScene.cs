@@ -40,6 +40,9 @@ public class SwitchScene : MonoBehaviour
 
     public void GoToMenu()
     {
+        FindObjectOfType<AudioManager>().Stop("Balance1");
+        FindObjectOfType<AudioManager>().Stop("Balance2");
+        FindObjectOfType<AudioManager>().Play("Theme");
         loadScene = "Menu";
         SceneManager.LoadScene("Menu");
     }

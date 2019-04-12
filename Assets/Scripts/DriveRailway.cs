@@ -193,16 +193,8 @@ public class DriveRailway : MonoBehaviour
                         counter++;
                     }
 
-                    while (!infoFinished)
-                    {
-                        info.text = "";
-
-
-
-
-                        infoFinished = true;
-                    }
-
+                    info.text = "";
+ 
 
 
                     if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.03)
@@ -241,14 +233,10 @@ public class DriveRailway : MonoBehaviour
                     }
 
 
-                    //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (20 to -20 -- depends on the degrees)
+                    //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (30 to -30 -- depends on the degrees)
 
-
-
-
-                    // Første går det raskere og raskere, kanskje i et høyere level
-                    //rb.AddForce(0, 0, 500 * Time.deltaTime);
-                    rb.velocity = new Vector3(0, 0, speed*Time.deltaTime);
+                 
+                    rb.velocity = new Vector3(0, 0, 500f*Time.deltaTime);
                 }
             }        
         }
@@ -277,7 +265,6 @@ public class DriveRailway : MonoBehaviour
 
     private void infoRound ()
     {
-        info.text = "sg";
         if (BodySourceManager == null)
         {
             player.transform.eulerAngles = new Vector3(0, 0, 0);
