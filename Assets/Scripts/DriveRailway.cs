@@ -214,7 +214,7 @@ public class DriveRailway : MonoBehaviour
                         }
                         else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                         {
-                            if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 > -30)
+                            if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 < -30)
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, -30f);
                             }
@@ -226,18 +226,20 @@ public class DriveRailway : MonoBehaviour
                         else
                         {
                             player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                            player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
                         }
 
                     }
                     else
                     {
                         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
-                    }
+                        player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
+                    }                   
 
 
                     //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (30 to -30 -- depends on the degrees)
 
-                 
+
                     rb.velocity = new Vector3(0, 0, 500f*Time.deltaTime);
                 }
             }        

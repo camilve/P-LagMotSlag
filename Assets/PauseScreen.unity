@@ -597,7 +597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Go in front of the camera to start.
+  m_Text: "G\xE5 foran kamera for \xE5 starte."
 --- !u!222 &456312330
 CanvasRenderer:
   m_ObjectHideFlags: 0

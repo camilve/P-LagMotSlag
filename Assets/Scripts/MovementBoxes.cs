@@ -102,11 +102,11 @@ public class MovementBoxes : MonoBehaviour
             }
             else if (SwitchScene.lvl == 2)
             {
-                rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -200 * Time.deltaTime);
             }
             else
             {
-                rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -300 * Time.deltaTime);
             }
 
 
