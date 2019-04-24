@@ -60,7 +60,7 @@ public class MovementBoxes : MonoBehaviour
                 if (hit)
                 {
                     foreach (GameObject boxes in Balance1Script.infoBoxes)
-                    {
+                    {                      
                         Debug.Log("hei");
                         boxes.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     }
