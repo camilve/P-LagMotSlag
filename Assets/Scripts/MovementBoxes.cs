@@ -7,13 +7,14 @@ public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
     protected GameObject player;
-    public static int score = 0;
+    public static int score;
 
     private bool isGivenPoint = false;
 
     // Start is called before the first frame update
     void Start()
-    {     
+    {
+        score = 0;
         Balance1Script.enableBoxes = true;
 
     }
@@ -102,11 +103,11 @@ public class MovementBoxes : MonoBehaviour
             }
             else if (SwitchScene.lvl == 2)
             {
-                rb.velocity = new Vector3(0, 0, -200 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -175 * Time.deltaTime);
             }
             else
             {
-                rb.velocity = new Vector3(0, 0, -300 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -250 * Time.deltaTime);
             }
 
 
