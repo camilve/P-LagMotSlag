@@ -240,7 +240,7 @@ public class DriveRailway : MonoBehaviour
                     //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (30 to -30 -- depends on the degrees)
 
 
-                    rb.velocity = new Vector3(0, 0, 500f*Time.deltaTime);
+                    rb.velocity = new Vector3(0, 0, speed*Time.deltaTime);
                 }
             }        
         }
