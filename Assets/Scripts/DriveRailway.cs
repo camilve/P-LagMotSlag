@@ -16,10 +16,10 @@ public class DriveRailway : MonoBehaviour
     private int counter;
     private float startAngleLeft;
     private float startAngleRight;
-    public static int nrCoins = 0;
+    public static int nrCoins;
     public GameObject CoinPrefab;
     public Text points;
-    public int totalNrCoins = 0;
+    public static int totalNrCoins;
     private bool infoFinished = false;
     public Text info;
     private float speed;
@@ -31,11 +31,16 @@ public class DriveRailway : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {      
+    {
+
+        Debug.Log("lvl " + SwitchScene.lvl);
         player = GameObject.Find("Player");
         counter = 1;
         spineStartPos = new Vector3(0, 0, 0);
         Quaternion rotation = Quaternion.Euler(90, 0, 0);
+
+        nrCoins = 0;
+        totalNrCoins = 0;
 
 #warning Gjøre om dette, høre med Elise hva hun tenker!
         //Test coin
@@ -248,7 +253,7 @@ public class DriveRailway : MonoBehaviour
         if(player.transform.position.z > 1744f)
         {
             percent = Mathf.Round(nrCoins / totalNrCoins * 100);
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Balance 2 Score");
         }
 
     }

@@ -27,6 +27,8 @@ public class Balance1Script : MonoBehaviour {
     private List<GameObject> prefabList;
     public static bool enableBoxes = false;
 
+    public static int totalBoxes;
+
     public static List<GameObject> infoBoxes;
 
     private bool infoShowed = false;
@@ -34,6 +36,7 @@ public class Balance1Script : MonoBehaviour {
 
     void Start ()
     {
+        totalBoxes = 0;
         player = gameObject;
         animator = player.GetComponent<Animator>();
         //animator = GetComponent<Animator>();
@@ -44,8 +47,10 @@ public class Balance1Script : MonoBehaviour {
         Vector3 prevPos = new Vector3(0.16f, 2f, 0f);
         int prevRandom = 2;        
         infoBoxes.Add(Instantiate(Middle, prevPos, Quaternion.identity));
+        totalBoxes++;
         prevPos.z = prevPos.z + 10f;
         infoBoxes.Add(Instantiate(Right, prevPos, Quaternion.identity));
+        totalBoxes++;
         while (prevPos.z < 540f)
         {
             Vector3 pos = new Vector3(0.16f, 2f, 0f);
@@ -65,6 +70,7 @@ public class Balance1Script : MonoBehaviour {
                 }
 
                 GameObject l = Instantiate(Left, pos, Quaternion.identity);
+                totalBoxes++;
                 prefabList.Add(l);
             }
             else if (randomVal == 1)
@@ -75,11 +81,13 @@ public class Balance1Script : MonoBehaviour {
                     pos.z = prevPos.z + randomZpos + 5f;
                 }
                 GameObject l = Instantiate(Right, pos, Quaternion.identity);
+                totalBoxes++;
                 prefabList.Add(l);
             }
             else if (randomVal == 2)
             {
                 GameObject l = Instantiate(Middle, pos, Quaternion.identity);
+                totalBoxes++;
                 prefabList.Add(l);
             }         
             
@@ -228,7 +236,7 @@ public class Balance1Script : MonoBehaviour {
 
         if (prefabList[prefabList.Count - 1].transform.position.z < this.transform.position.z) 
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Balance 1 Score");
         }
 
 

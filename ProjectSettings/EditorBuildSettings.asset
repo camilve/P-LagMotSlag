@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Balance 2.unity
     guid: 5b3c47320008d8c4e86161f209b30327
+  - enabled: 1
+    path: Assets/Balance 2 Score.unity
+    guid: 800f4554bb32ada48821250d0c19b159
+  - enabled: 1
+    path: Assets/Start.unity
+    guid: 18cd2269fb4056f4992131ab46ccbd9b
+  - enabled: 1
+    path: Assets/Balance 1 Score.unity
+    guid: 163cace0117ae68468c4ff5cbe49a1f5
   m_configObjects: {}
