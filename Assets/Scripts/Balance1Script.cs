@@ -13,14 +13,9 @@ public class Balance1Script : MonoBehaviour {
     private GameObject player;
     public GameObject BodySourceManager;
     private BodySourceManager _BodyManager;
-
-    private bool first = true;
-
     public GameObject Left;
     public GameObject Right;
     public GameObject Middle;
-
-    private int counter = 0;
 
     public Text points;
 
@@ -200,7 +195,6 @@ public class Balance1Script : MonoBehaviour {
                     player.transform.position = GetVector(body.Joints[Kinect.JointType.SpineBase].Position) - diff;
 
                     //Place the feet the same place as the Kinect.            
-#warning Vet ikke om foten går frem eller tilbake
                     animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
                     animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
                     animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);

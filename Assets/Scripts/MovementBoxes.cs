@@ -20,7 +20,6 @@ public class MovementBoxes : MonoBehaviour
     }
 
     // FixedUpdate because we use it to mess with physics
-#warning Usikker på om jeg skal lage en update og en fixedUpdate
     void Update()
     {
 
@@ -96,18 +95,17 @@ public class MovementBoxes : MonoBehaviour
         else
         {
             //The speed is relative to the level the user has chosen. 
-#warning Må endre til forskjellig fart.
             if (SwitchScene.lvl == 1)
             {
-                rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -50 * Time.deltaTime);
             }
             else if (SwitchScene.lvl == 2)
             {
-                rb.velocity = new Vector3(0, 0, -175 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -100 * Time.deltaTime);
             }
             else
             {
-                rb.velocity = new Vector3(0, 0, -250 * Time.deltaTime);
+                rb.velocity = new Vector3(0, 0, -150 * Time.deltaTime);
             }
 
 

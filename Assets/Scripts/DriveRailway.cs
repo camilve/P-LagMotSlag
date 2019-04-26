@@ -20,7 +20,6 @@ public class DriveRailway : MonoBehaviour
     public GameObject CoinPrefab;
     public Text points;
     public static int totalNrCoins;
-    private bool infoFinished = false;
     public Text info;
     private float speed;
 
@@ -42,7 +41,6 @@ public class DriveRailway : MonoBehaviour
         nrCoins = 0;
         totalNrCoins = 0;
 
-#warning Gjøre om dette, høre med Elise hva hun tenker!
         //Test coin
         Instantiate(CoinPrefab, new Vector3(4.6f, 5.55f, 30f), rotation);
 
@@ -175,11 +173,7 @@ public class DriveRailway : MonoBehaviour
 
 
                     //distance between the ankles
-                    float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));
-
-                    //Distance between from ankle that the spine should be (center of gravity)
-                    float optimalSpinePos = d / 2;
-
+                    float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));               
 
                     //distance from spine to left ankle and distance from spine to right ankle
                     float dSpineLeft = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleLeft.x), 2) + Mathf.Pow((spinePos.y - ankleLeft.y), 2) + Mathf.Pow((spinePos.z - ankleLeft.z), 2));
@@ -212,6 +206,11 @@ public class DriveRailway : MonoBehaviour
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, 30f);
                             }
+                            else if (Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 < 4)
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                                player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
+                            }
                             else
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
@@ -222,6 +221,11 @@ public class DriveRailway : MonoBehaviour
                             if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 < -30)
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, -30f);
+                            }
+                            else if (Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * -3 > -4)
+                            {
+                                player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                                player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
                             }
                             else
                             {
@@ -311,11 +315,7 @@ public class DriveRailway : MonoBehaviour
 
 
                 //distance between the ankles
-                float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));
-
-                //Distance between from ankle that the spine should be (center of gravity)
-                float optimalSpinePos = d / 2;
-
+                float d = Mathf.Sqrt(Mathf.Pow((ankleLeft.x - ankleRight.x), 2) + Mathf.Pow((ankleLeft.y - ankleRight.y), 2) + Mathf.Pow((ankleLeft.z - ankleRight.z), 2));                           
 
                 //distance from spine to left ankle and distance from spine to right ankle
                 float dSpineLeft = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleLeft.x), 2) + Mathf.Pow((spinePos.y - ankleLeft.y), 2) + Mathf.Pow((spinePos.z - ankleLeft.z), 2));
