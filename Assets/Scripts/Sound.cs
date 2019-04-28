@@ -1,6 +1,9 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
 
+/// <summary>
+/// Help class to get the names, etc. of the sounds.
+/// </summary>
 [System.Serializable]
 public class Sound 
 {

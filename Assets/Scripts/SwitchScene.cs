@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Switch to another scene
+/// </summary>
 public class SwitchScene : MonoBehaviour
 {
     public static string loadScene = "";
@@ -22,6 +25,9 @@ public class SwitchScene : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Start the first game by first going to the loading scene.
+    /// </summary>
     public void GotoBalance1Scene()
     {
         loadScene = "Balance 1";
@@ -30,6 +36,9 @@ public class SwitchScene : MonoBehaviour
         SceneManager.LoadScene("PauseScreen");
     }
 
+    /// <summary>
+    /// Start the second game by first going to the loading scene.
+    /// </summary>
     public void GotoBalance2Scene()
     {
         loadScene = "Balance 2";
@@ -38,6 +47,9 @@ public class SwitchScene : MonoBehaviour
         SceneManager.LoadScene("PauseScreen");
     }
 
+    /// <summary>
+    /// Goes to the menu.
+    /// </summary>
     public void GoToMenu()
     {
         FindObjectOfType<AudioManager>().Stop("Balance1");

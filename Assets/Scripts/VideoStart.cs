@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
+/// <summary>
+/// Starts video in a RawImage in Canvas.
+/// </summary>
 public class VideoStart : MonoBehaviour
 {
     public RawImage rw;

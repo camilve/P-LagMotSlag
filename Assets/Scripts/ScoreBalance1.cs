@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Calculates the score in percentage for the first game
+/// </summary>
 public class ScoreBalance1 : MonoBehaviour
 {
     public Image scorePercent;
@@ -28,6 +31,11 @@ public class ScoreBalance1 : MonoBehaviour
             StartCoroutine(createDiagram());
         }
     }
+
+    /// <summary>
+    /// Creates the diagram with the score-presentage.
+    /// </summary>
+    /// <returns>Seconds to wait between each percentage in the diagram</returns>
     IEnumerator createDiagram()
     {
         showed = true;
@@ -39,7 +47,9 @@ public class ScoreBalance1 : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// If the user press the play again button the game starts again.
+    /// </summary>
     public void Restart()
     {
         SceneManager.LoadScene("Balance 1");

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Kinect = Windows.Kinect;
 
+/// <summary>
+/// Moves the obstacle boxes in the first game, and gives point if the player does not collide with the boxes.
+/// </summary>
 public class MovementBoxes : MonoBehaviour
 {
     public Rigidbody rb;
@@ -11,7 +14,6 @@ public class MovementBoxes : MonoBehaviour
 
     private bool isGivenPoint = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         score = 0;
@@ -19,12 +21,9 @@ public class MovementBoxes : MonoBehaviour
 
     }
 
-    // FixedUpdate because we use it to mess with physics
     void Update()
     {
-
         player = GameObject.Find("Player");
-        //Debug.Log(player);
 
         Animator a = player.GetComponent<Animator>();
         Transform playerTransform = player.transform;
@@ -36,9 +35,9 @@ public class MovementBoxes : MonoBehaviour
 
         Transform thisTransform = this.transform;
 
+        //The first two boxes is going slower and stops if the user does it wrong. Help for the user to understand the game.
         if (score < 2)
         {
-            //Debug.Log(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2));
             if (Mathf.Abs(positionRight.z - (this.transform.position.z - this.transform.localScale.z / 2)) < 0.5f)
             {
                 bool hit = false;
@@ -51,7 +50,6 @@ public class MovementBoxes : MonoBehaviour
                     scale = thisTransform.GetChild(i).localScale;
                     if ((p.x - (scale.x / 2) < positionLeft.x && p.x + (scale.x / 2) > positionLeft.x) || (p.x - (scale.x / 2) < positionRight.x && p.x + (scale.x / 2) > positionRight.x))
                     {
-                        //rb.velocity = new Vector3(0f, 0f, -50f * Time.deltaTime);
                         hit = true;
                     }
                     
@@ -61,7 +59,6 @@ public class MovementBoxes : MonoBehaviour
                 {
                     foreach (GameObject boxes in Balance1Script.infoBoxes)
                     {                      
-                        Debug.Log("hei");
                         boxes.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     }
                     Balance1Script.enableBoxes = false;
@@ -76,7 +73,6 @@ public class MovementBoxes : MonoBehaviour
                     Balance1Script.enableBoxes = true;
                     if(!isGivenPoint)
                     {
-                        Debug.Log("hei");
                         FindObjectOfType<AudioManager>().Play("BoxPoint");
                         score++;
                         isGivenPoint = true;

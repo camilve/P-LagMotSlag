@@ -6,6 +6,9 @@ using Kinect = Windows.Kinect;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Makes the cart in the second game drive along the railway, and leans the cart as the player leans over to the side.
+/// </summary>
 public class DriveRailway : MonoBehaviour
 {
     public GameObject BodySourceManager;
@@ -22,17 +25,13 @@ public class DriveRailway : MonoBehaviour
     public static int totalNrCoins;
     public Text info;
     private float speed;
-
     public static float percent = 0;
-
     private bool infoShowed = false;
     private bool firstInfoShowed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        Debug.Log("lvl " + SwitchScene.lvl);
         player = GameObject.Find("Player");
         counter = 1;
         spineStartPos = new Vector3(0, 0, 0);
@@ -41,10 +40,11 @@ public class DriveRailway : MonoBehaviour
         nrCoins = 0;
         totalNrCoins = 0;
 
-        //Test coin
+        //Create an instance of a coin in the game
         Instantiate(CoinPrefab, new Vector3(4.6f, 5.55f, 30f), rotation);
 
 
+        //create instance of coins randomly alone railway
         float startPos = 70f;
         float endPos = 1744f;
         Vector3 prevPos = new Vector3(0,0,startPos);
@@ -66,6 +66,7 @@ public class DriveRailway : MonoBehaviour
                 pos.x = 0f;
             }
 
+            //Longer space between coins that aren't at the same side since the player needs to change position.
             if(prevPos.x == pos.x)
             {               
                 pos.z = prevPos.z + Random.Range(4f, 15f);
@@ -84,6 +85,8 @@ public class DriveRailway : MonoBehaviour
             prevPos = pos;
             
         }
+
+        //Sets the speed according to the level the player chose
         if(SwitchScene.lvl == 1)
         {
             speed = 200f;
@@ -96,33 +99,19 @@ public class DriveRailway : MonoBehaviour
         {
             speed = 500f;
         }
-
-        Debug.Log("nr coins " + totalNrCoins);
-
-        //Debug.Log(FindObjectOfType<AudioManager>());
-        //FindObjectOfType<AudioManager>().Stop("Theme");
-
     }
-
-
-
-
-
-
-
-
 
     // Update is called once per frame
     void Update()
     {         
-        
-        
+        //If no coins are picked up, the cart is going slower and make sure the player has to pick up the first coin
         if (nrCoins == 0)
         {
             if (!infoShowed)
             {
+                //The audio information have to be showed before the game is starting (can only be started once)
                 if (!firstInfoShowed)
-                {
+                {                   
                     FindObjectOfType<AudioManager>().Stop("Theme");
                     StartCoroutine(infoAudio());
                 }
@@ -184,29 +173,21 @@ public class DriveRailway : MonoBehaviour
                     float rightAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(dSpineRight, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineRight * d));
 
 
-
-                    //Save start position
-                    if (counter == 1)
-                    {
-                        spineStartPos = spinePos;
-                        startAngleLeft = leftAngleAnkle * 180 / Mathf.PI;
-                        startAngleRight = rightAngleAnkle * 180 / Mathf.PI;
-                        counter++;
-                    }
-
                     info.text = "";
  
 
-
+                    //to make sure the player moves the spine when leaning over (to not cheat).
                     if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.03)
                     {
                         if ((leftAngleAnkle * 180 / Mathf.PI) > startAngleLeft) //Leans toward left
                         {
+                            //So the cart won't fall over.
                             if(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 > 30)
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, 30f);
                             }
-                            else if (Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 < 4)
+                            //so the cart won't be so sensitive to a little movement to the side when the player does not stand the same place as he/her started.
+                            else if (Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3 < 4) 
                             {
                                 player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                                 player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
@@ -244,16 +225,10 @@ public class DriveRailway : MonoBehaviour
                         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                         player.transform.position = new Vector3(0f, transform.position.y, transform.position.z);
                     }                   
-
-
-                    //Check if the player is leaning over to one of the sides. Z is the rotation that has to change (30 to -30 -- depends on the degrees)
-
-
                     rb.velocity = new Vector3(0, 0, speed*Time.deltaTime);
                 }
             }        
         }
-
         if(player.transform.position.z > 1744f)
         {
             percent = Mathf.Round(nrCoins / totalNrCoins * 100);
@@ -261,21 +236,26 @@ public class DriveRailway : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Changes a CameraSpacePoint to a vector 
+    /// (Kinects sensor returns the body joint in CameraSpacePoint)
+    /// </summary>
+    /// <param name="point">point from Kinect body joint</param>
+    /// <returns></returns>
     private Vector3 GetVector(CameraSpacePoint point)
     {
-        Vector3 v = new Vector3(0f, 0f, 0f);
-        v.x = point.X;
-        v.y = point.Y;
-        v.z = point.Z;
-        return v;
+        return new Vector3(point.X, point.Y, point.Z);
     }
 
 
 
 
 
-
-
+    /// <summary>
+    ///  The player has to collect the first coin before the game starts properly. 
+    ///  This is created as a help for the player to understand the way to collect a coin.
+    /// </summary>
     private void infoRound ()
     {
         if (BodySourceManager == null)
@@ -307,8 +287,10 @@ public class DriveRailway : MonoBehaviour
             {
                 continue;
             }
+            //When body is tracked with Kinect
             if (body.IsTracked)
             {
+                //Finds the position of the spine and knees.
                 Vector3 spinePos = GetVector(body.Joints[Windows.Kinect.JointType.SpineBase].Position); ;
                 Vector3 ankleRight = GetVector(body.Joints[Windows.Kinect.JointType.KneeRight].Position);
                 Vector3 ankleLeft = GetVector(body.Joints[Windows.Kinect.JointType.KneeLeft].Position);
@@ -321,13 +303,14 @@ public class DriveRailway : MonoBehaviour
                 float dSpineLeft = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleLeft.x), 2) + Mathf.Pow((spinePos.y - ankleLeft.y), 2) + Mathf.Pow((spinePos.z - ankleLeft.z), 2));
                 float dSpineRight = Mathf.Sqrt(Mathf.Pow((spinePos.x - ankleRight.x), 2) + Mathf.Pow((spinePos.y - ankleRight.y), 2) + Mathf.Pow((spinePos.z - ankleRight.z), 2));
 
-                //Find angle of left ankle to floor
+                //Find angle of left ankle to floor, uses the law of cosines formula
                 float leftAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineRight, 2) - Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineLeft * d));
                 float rightAngleAnkle = Mathf.Acos((Mathf.Pow(dSpineLeft, 2) - Mathf.Pow(dSpineRight, 2) - Mathf.Pow(d, 2)) / (-2 * dSpineRight * d));
 
 
 
-                //Save start position
+                //Saves start position, so the player can lean relative to his/hers starting position 
+                //Important since stoke patients often lean more over to one of the legs
                 if (counter == 1)
                 {                      
                     spineStartPos = spinePos;
@@ -336,7 +319,6 @@ public class DriveRailway : MonoBehaviour
                     counter++;
                 }
 
-                //Debug.Log(player.transform.position.z);
 
                 if (Mathf.Abs(spineStartPos.x - spinePos.x) > 0.05)
                 {
@@ -351,18 +333,17 @@ public class DriveRailway : MonoBehaviour
                             player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
                         }
 
-                        Debug.Log("herrr");
-                        rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
+                        rb.velocity = new Vector3(0, 0, 150f * Time.deltaTime);
+
+                        //The speed stops so the player has to pick up the first coin before it continues.
                         if (player.transform.position.z > 28f)
                         {
                             rb.velocity = new Vector3(0f, 0f, 0f);
                         }
-                        //player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 3);
-                        //Debug.Log(Mathf.Abs((leftAngleAnkle * 180 / Mathf.PI) - startAngleLeft) * 2);
                     }
                     else if ((rightAngleAnkle * 180 / Mathf.PI) > startAngleRight) //Leans toward right
                     {
-                        if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 > -30)
+                        if (Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3 < -30)
                         {
                             player.transform.eulerAngles = new Vector3(0f, 0f, -30f);
                         }
@@ -370,15 +351,14 @@ public class DriveRailway : MonoBehaviour
                         {
                             player.transform.eulerAngles = new Vector3(0f, 0f, Mathf.Abs((rightAngleAnkle * 180 / Mathf.PI) - startAngleRight) * -3);
                         }
-                        rb.velocity = new Vector3(0f, 0f, 200f * Time.deltaTime);
+                        rb.velocity = new Vector3(0f, 0f, 150f * Time.deltaTime);
 
                     }
                     else
                     {
                         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                         info.text = "Len deg over mot høyre for å fange mynten";
-                        Debug.Log("jksf");                        
-                        rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
+                        rb.velocity = new Vector3(0, 0, 150f * Time.deltaTime);
                         if(player.transform.position.z > 28f)
                         {
                             rb.velocity = new Vector3(0f, 0f, 0f);
@@ -390,8 +370,7 @@ public class DriveRailway : MonoBehaviour
                 {
                     player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
                     info.text = "Len deg over mot høyre for å fange mynten";
-                    Debug.Log("jksf");
-                    rb.velocity = new Vector3(0, 0, 300f * Time.deltaTime);
+                    rb.velocity = new Vector3(0, 0, 150f * Time.deltaTime);
                     if (player.transform.position.z > 28f)
                     {
                         rb.velocity = new Vector3(0f, 0f, 0f);
@@ -402,6 +381,10 @@ public class DriveRailway : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Starts the info audio at the start of the game, and waits to start until the audio is finish
+    /// </summary>
+    /// <returns>Number of seconds the game has to wait to start</returns>
     IEnumerator infoAudio()
     {
         firstInfoShowed = true;

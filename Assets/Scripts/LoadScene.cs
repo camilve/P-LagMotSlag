@@ -4,9 +4,11 @@ using UnityEngine.UI;
 using Kinect = Windows.Kinect;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Load the game if the person is found in the camera.
+/// </summary>
 public class LoadScene : MonoBehaviour
 {
-
     private bool loadScene = false;
 
     public GameObject BodySourceManager;
