@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Makes the camera follow the cart when it's driving and collecting coins
+/// </summary>
 public class CameraFollowB2 : MonoBehaviour
 {
     public GameObject player;
