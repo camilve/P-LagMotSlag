@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Kinect = Windows.Kinect;
 
+/// <summary>
+/// <copyright file="BodySourceView.cs" company="Microsoft">
+///     Copyright (c) Microsoft Corporation.  All rights reserved.
+///  </copyright>
+/// </summary>
 public class BodySourceView : MonoBehaviour 
 {
     public Material BoneMaterial;

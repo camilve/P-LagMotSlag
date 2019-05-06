@@ -2,6 +2,11 @@
 using System.Collections;
 using Windows.Kinect;
 
+/// <summary>
+/// <copyright file="BodySourceManager.cs" company="Microsoft">
+///     Copyright (c) Microsoft Corporation.  All rights reserved.
+///  </copyright>
+/// </summary>
 public class BodySourceManager : MonoBehaviour 
 {
     private KinectSensor _Sensor;
