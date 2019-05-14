@@ -1,6 +1,12 @@
 ﻿using RootSystem = System;
 using System.Linq;
 using System.Collections.Generic;
+/// <summary>
+/// <copyright company="Microsoft">
+///     Copyright (c) Microsoft Corporation.  All rights reserved.
+///     https://developer.microsoft.com/en-us/windows/kinect
+///  </copyright>
+/// </summary>
 namespace Windows.Kinect
 {
     //

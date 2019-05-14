@@ -5,6 +5,7 @@ using Windows.Kinect;
 /// <summary>
 /// <copyright file="BodySourceManager.cs" company="Microsoft">
 ///     Copyright (c) Microsoft Corporation.  All rights reserved.
+///     https://developer.microsoft.com/en-us/windows/kinect
 ///  </copyright>
 /// </summary>
 public class BodySourceManager : MonoBehaviour 

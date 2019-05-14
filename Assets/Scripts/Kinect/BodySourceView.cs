@@ -6,6 +6,7 @@ using Kinect = Windows.Kinect;
 /// <summary>
 /// <copyright file="BodySourceView.cs" company="Microsoft">
 ///     Copyright (c) Microsoft Corporation.  All rights reserved.
+///     https://developer.microsoft.com/en-us/windows/kinect
 ///  </copyright>
 /// </summary>
 public class BodySourceView : MonoBehaviour 
