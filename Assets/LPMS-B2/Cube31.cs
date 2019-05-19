@@ -7,6 +7,13 @@ using System;
 
 using LpmsCSharpWrapper;
 
+/// <summary>
+/// <copyright>
+///     Copyright (c) Life Performance Research.  All rights reserved.
+///     https://bitbucket.org/lpresearch/openmat/downloads/
+///  </copyright>
+///  Made changes so the sensor finds acceleration
+/// </summary>
 public class Cube31 : MonoBehaviour
 {
 

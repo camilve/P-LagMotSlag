@@ -7,6 +7,12 @@ using System.IO;
 
 namespace LpmsCSharpWrapper
 {
+    /// <summary>
+    /// <copyright file="LpSensorManager.cs" company="Life Performance Research">
+    ///     Copyright (c) Life Performance Research.  All rights reserved.
+    ///     https://bitbucket.org/lpresearch/openmat/downloads/
+    ///  </copyright>
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     unsafe struct SensorData
     {

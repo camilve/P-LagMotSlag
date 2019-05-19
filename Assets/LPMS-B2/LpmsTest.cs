@@ -7,6 +7,12 @@ using System;
 
 using LpmsCSharpWrapper;
 
+/// <summary>
+/// <copyright file="LpmsTest.cs" company="Life Performance Research">
+///     Copyright (c) Life Performance Research.  All rights reserved.
+///     https://bitbucket.org/lpresearch/openmat/downloads/
+///  </copyright>
+/// </summary>
 public class LpmsTest : MonoBehaviour {
 
     public Button objectResetButton;
