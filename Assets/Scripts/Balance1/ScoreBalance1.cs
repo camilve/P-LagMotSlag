@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using MoveBoxesSpace;
-using Balance1Space;
 
-namespace ScoreBalance1Space
+
+namespace Balance1Space
 {
     /// <summary>
     /// Calculates the score in percentage for the first game

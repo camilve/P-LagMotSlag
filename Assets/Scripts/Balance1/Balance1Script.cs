@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Windows.Kinect;
 using Kinect = Windows.Kinect;
 using UnityEngine.SceneManagement;
-using MoveBoxesSpace;
 using AudioSpace;
 using BodySourceSpace;
 

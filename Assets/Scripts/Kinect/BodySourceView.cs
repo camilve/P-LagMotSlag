@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Kinect = Windows.Kinect;
 using BodySourceSpace;
 
-namespace BodyViewSpace
+namespace BodySourceSpace
 {
     /// <summary>
     /// <copyright file="BodySourceView.cs" company="Microsoft">

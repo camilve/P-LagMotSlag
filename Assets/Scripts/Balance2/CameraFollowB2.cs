@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CameraSpace
+namespace Balance2Space
 {
     /// <summary>
     /// Makes the camera follow the cart when it's driving and collecting coins

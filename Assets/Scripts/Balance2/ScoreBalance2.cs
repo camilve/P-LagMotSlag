@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Balance2Space;
 
-namespace ScoreBalance2Space
+
+namespace Balance2Space
 {
     /// <summary>
     /// Calculates the score in percentage for the second game, and creates a graph to show the score.

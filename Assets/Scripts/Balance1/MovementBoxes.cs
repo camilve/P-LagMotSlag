@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Kinect = Windows.Kinect;
-using Balance1Space;
 using AudioSpace;
 using SwitchSpace;
 
-namespace MoveBoxesSpace
+namespace Balance1Space
 {
     /// <summary>
     /// Moves the obstacle boxes in the first game, and gives point if the player does not collide with the boxes.

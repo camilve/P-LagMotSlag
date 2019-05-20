@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using BodySourceSpace;
 using SwitchSpace;
 
-namespace LoadSceenSpace
+namespace SwitchSpace
 {
     /// <summary>
     /// Load the game if the person is found in the camera.

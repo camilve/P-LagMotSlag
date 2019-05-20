@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using AudioSpace;
-using Balance2Space;
 
-namespace CoinColliderSpace
+namespace Balance2Space
 {
     /// <summary>
     /// Makes the coins rotate during the game, and gives the player points as it collides with the coin.

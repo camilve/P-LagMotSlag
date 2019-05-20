@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
-namespace SoundSpace
+namespace AudioSpace
 {
     /// <summary>
     /// Help class to get the names, etc. of the sounds.
