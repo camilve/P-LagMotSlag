@@ -2,75 +2,78 @@
 using System.Collections;
 using Windows.Kinect;
 
-/// <summary>
-/// <copyright file="BodySourceManager.cs" company="Microsoft">
-///     Copyright (c) Microsoft Corporation.  All rights reserved.
-///     https://developer.microsoft.com/en-us/windows/kinect
-///  </copyright>
-/// </summary>
-public class BodySourceManager : MonoBehaviour 
+namespace BodySourceSpace
 {
-    private KinectSensor _Sensor;
-    private BodyFrameReader _Reader;
-    private Body[] _Data = null;
-    
-    public Body[] GetData()
+    /// <summary>
+    /// <copyright file="BodySourceManager.cs" company="Microsoft">
+    ///     Copyright (c) Microsoft Corporation.  All rights reserved.
+    ///     https://developer.microsoft.com/en-us/windows/kinect
+    ///  </copyright>
+    /// </summary>
+    public class BodySourceManager : MonoBehaviour
     {
-        return _Data;
-    }
-    
+        private KinectSensor _Sensor;
+        private BodyFrameReader _Reader;
+        private Body[] _Data = null;
 
-    void Start () 
-    {
-        _Sensor = KinectSensor.GetDefault();
-
-        if (_Sensor != null)
+        public Body[] GetData()
         {
-            _Reader = _Sensor.BodyFrameSource.OpenReader();
-            
-            if (!_Sensor.IsOpen)
-            {
-                _Sensor.Open();               
-            }
-        }   
-    }
-    
-    void Update () 
-    {
-        if (_Reader != null)
-        {
-            var frame = _Reader.AcquireLatestFrame();
-            if (frame != null)
-            {
-                if (_Data == null)
-                {
-                    _Data = new Body[_Sensor.BodyFrameSource.BodyCount];
-                }
-                
-                frame.GetAndRefreshBodyData(_Data);
-                
-                frame.Dispose();
-                frame = null;
-            }
-        }    
-    }
-    
-    void OnApplicationQuit()
-    {
-        if (_Reader != null)
-        {
-            _Reader.Dispose();
-            _Reader = null;
+            return _Data;
         }
-        
-        if (_Sensor != null)
+
+
+        void Start()
         {
-            if (_Sensor.IsOpen)
+            _Sensor = KinectSensor.GetDefault();
+
+            if (_Sensor != null)
             {
-                _Sensor.Close();
+                _Reader = _Sensor.BodyFrameSource.OpenReader();
+
+                if (!_Sensor.IsOpen)
+                {
+                    _Sensor.Open();
+                }
             }
-            
-            _Sensor = null;
+        }
+
+        void Update()
+        {
+            if (_Reader != null)
+            {
+                var frame = _Reader.AcquireLatestFrame();
+                if (frame != null)
+                {
+                    if (_Data == null)
+                    {
+                        _Data = new Body[_Sensor.BodyFrameSource.BodyCount];
+                    }
+
+                    frame.GetAndRefreshBodyData(_Data);
+
+                    frame.Dispose();
+                    frame = null;
+                }
+            }
+        }
+
+        void OnApplicationQuit()
+        {
+            if (_Reader != null)
+            {
+                _Reader.Dispose();
+                _Reader = null;
+            }
+
+            if (_Sensor != null)
+            {
+                if (_Sensor.IsOpen)
+                {
+                    _Sensor.Close();
+                }
+
+                _Sensor = null;
+            }
         }
     }
 }
