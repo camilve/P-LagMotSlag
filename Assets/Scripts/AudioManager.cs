@@ -5,7 +5,11 @@ using UnityEngine;
 namespace AudioSpace
 {
     /// <summary>
-    /// AudioManager makes it possible to start and stop songs by their name, and makes it possible to continue a song over several scenes.
+    /// AudioManager makes it possible to start and stop songs by their name, and makes it possible to continue a song. over several scenes.
+    /// References
+    /// Coin Collect sound - https://www.youtube.com/watch?v=RfkcI8dhfsQ
+    /// No collision sound - https://www.youtube.com/watch?v=KDGq81bDclE
+    /// Background music - https://www.youtube.com/watch?v=7e7aPANqduU
     /// </summary>
     public class AudioManager : MonoBehaviour
     {
